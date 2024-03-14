@@ -1,14 +1,12 @@
-import React from 'react';
-import EmployeeList from './EmployeeList';
-import SOPList from './SOPList';
-import './App.css'; 
+import React from "react";
+import EmployeeList from "./components/EmployeeList";
+import "./App.css";
 
 const App = () => {
   return (
     <div className="app-container">
-      <h2 className="centered-header">Employees Training Management System</h2>
+      <h1 className="centered-header">Employees Training Management System</h1>
       <EmployeeList />
-      <SOPList/>
     </div>
   );
 };

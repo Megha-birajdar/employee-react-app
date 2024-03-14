@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const SOPList = () => {
+const SOPList = (props) => {
   const [sops, setSops] = useState([]);
-
+  const { department_id } = props;
   useEffect(() => {
-    // Replace the URL with your Spring Boot API endpoint for fetching SOPs
-    axios.get('http://localhost:8080/api/sops')
-      .then(response => setSops(response.data))
-      .catch(error => console.error('Error fetching SOPs:', error));
-  }, []);
+    axios
+      .get(`http://localhost:8080/api/sops/departments/${department_id}/sops`)
+
+      .then((response) => setSops(response.data))
+
+      .catch((error) => console.error("Error fetching SOPs:", error));
+  }, [department_id]);
 
   return (
     <div>
@@ -23,11 +25,11 @@ const SOPList = () => {
           </tr>
         </thead>
         <tbody>
-          {sops.map(sop => (
+          {sops.map((sop) => (
             <tr key={sop.sop_id}>
               <td>{sop.sop_id}</td>
               <td>{sop.sop_title}</td>
-              <td>{sop.department ? sop.department.department_id : ''}</td>
+              <td>{sop.department ? sop.department.department_id : ""}</td>
             </tr>
           ))}
         </tbody>
