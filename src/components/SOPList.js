@@ -6,7 +6,7 @@ const SOPList = (props) => {
   const { department_id } = props;
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/sops/departments/${department_id}/sops`)
+      .get(`http://localhost:8080/api/departments/${department_id}/sops`)
 
       .then((response) => setSops(response.data))
 
