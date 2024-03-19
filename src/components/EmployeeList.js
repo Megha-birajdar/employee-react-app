@@ -6,6 +6,7 @@ import SaveEmployee from "./SaveEmployee";
 import UpdateEmployee from "./UpdateEmployee";
 import { useDispatch } from "react-redux";
 import { setEmployeeId } from "../Utils/employeeConfig";
+import DeleteEmployee from "./DeleteEmployee";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -44,6 +45,9 @@ const EmployeeList = () => {
   const handleDeleteEmployee = (employee_id) => {
     // Implement logic for deleting an employee
     console.log("Delete employee logic here for employee ID:", employee_id);
+    setEmployees(
+      employees.filter((employee) => employee.employee_id !== employee_id)
+    );
   };
 
   return (
@@ -88,14 +92,14 @@ const EmployeeList = () => {
                     >
                       Update
                     </button>
-                    {/* {updateNewEmployee && (
-                      <UpdateEmployee employee_id={employee.employee_id} />
-                    )} */}
-                    <button
+                    {/* <button
                       onClick={() => handleDeleteEmployee(employee.employee_id)}
-                    >
-                      Delete
-                    </button>
+                    >Delete
+                    </button> */}
+                    <DeleteEmployee
+                      employee_id={employee.employee_id}
+                      onDelete={handleDeleteEmployee}
+                    />
                   </td>
                 </tr>
               ))}
@@ -109,5 +113,3 @@ const EmployeeList = () => {
 };
 
 export default EmployeeList;
-
-
