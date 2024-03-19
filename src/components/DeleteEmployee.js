@@ -11,6 +11,7 @@ const DeleteEmployee = ({ employee_id, onDelete }) => {
       await axios.delete(`http://localhost:8080/api/employees/${employee_id}`);
       // If deletion is successful, call the onDelete callback
       onDelete(employee_id);
+      alert("Employee data deleted successfully!");
     } catch (error) {
       console.error("Error deleting employee:", error);
     } finally {

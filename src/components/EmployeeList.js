@@ -7,6 +7,7 @@ import UpdateEmployee from "./UpdateEmployee";
 import { useDispatch } from "react-redux";
 import { setEmployeeId } from "../Utils/employeeConfig";
 import DeleteEmployee from "./DeleteEmployee";
+import AddDepartment from "./AddDepartment";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -14,6 +15,8 @@ const EmployeeList = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [addNewEmployee, setAddNewEmployee] = useState(false);
   const [updateNewEmployee, setUpdateNewEmployee] = useState(false);
+  const [addNewDepartment, setAddNewDepartment] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,10 +31,12 @@ const EmployeeList = () => {
     setShowEmployees(false);
     setSelectedDepartment(department_id);
   };
-
   const handleSaveEmployee = () => {
     // Implement logic for adding an employee
     setAddNewEmployee(true);
+  };
+  const handleAddDepartment = () => {
+    setAddNewDepartment(true);
   };
 
   const handleUpdateEmployee = (employee_id) => {
@@ -57,6 +62,8 @@ const EmployeeList = () => {
           <h2>EmployeeList</h2>
           <button onClick={handleSaveEmployee}>Add Employee</button>
           {addNewEmployee && <SaveEmployee />}
+          <button onClick={handleAddDepartment}>Add Department</button>
+          {addNewDepartment && <AddDepartment />}
           <table className="table table-striped table-bordered">
             <thead>
               <tr>

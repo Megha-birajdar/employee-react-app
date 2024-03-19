@@ -9,16 +9,16 @@ const SaveEmployee = () => {
     end_date: "",
     completed: false,
     department: { department_id: "" },
-    sops: []
+    sops: [],
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee({
       ...employee,
-      [name]: value
+      [name]: value,
     });
-    console.log("employee",employee);
+    console.log("employee", employee);
   };
 
   const handleSubmit = async (e) => {
@@ -34,7 +34,7 @@ const SaveEmployee = () => {
         end_date: "",
         completed: false,
         department: { department_id: "" },
-        sops: []
+        sops: [],
       });
     } catch (error) {
       console.error("Error saving employee:", error);
@@ -44,7 +44,7 @@ const SaveEmployee = () => {
   return (
     <div>
       <h2>Add New Employee</h2>
-      <form onSubmit={()=>handleSubmit()}>
+      <form onSubmit={() => handleSubmit()}>
         <label>
           Employee ID:
           <input
@@ -91,7 +91,9 @@ const SaveEmployee = () => {
             type="checkbox"
             name="completed"
             checked={employee.completed}
-            onChange={(e) => setEmployee({ ...employee, completed: e.target.checked })}
+            onChange={(e) =>
+              setEmployee({ ...employee, completed: e.target.checked })
+            }
           />
         </label>
         <br />
@@ -104,7 +106,7 @@ const SaveEmployee = () => {
             onChange={(e) =>
               setEmployee({
                 ...employee,
-                department: { department_id: e.target.value }
+                department: { department_id: e.target.value },
               })
             }
           />
