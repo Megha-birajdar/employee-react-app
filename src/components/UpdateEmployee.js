@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -13,7 +13,21 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
   });
   const navigate = useNavigate();
   const employee_id = useSelector((store) => store.employeeId.updateEmployeeId);
-  console.log("employeeId", employee_id);
+
+  useEffect(() => {
+    const fetchEmployeeDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/employees/${employee_id}`
+        );
+        setEmployeeData(response.data);
+      } catch (error) {
+        console.error("Error fetching employee details:", error);
+      }
+    };
+    fetchEmployeeDetails();
+  }, [employee_id]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployeeData((employeeData) => ({
