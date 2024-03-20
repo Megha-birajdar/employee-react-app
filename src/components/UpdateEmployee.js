@@ -46,7 +46,7 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
         `http://localhost:8080/api/employees/${employee_id}`,
         employeeData
       );
-      alert("Employee saved successfully!");
+      alert("Employee updated successfully!");
       onUpdate();
       onClose();
     } catch (error) {
