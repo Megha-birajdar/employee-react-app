@@ -15,13 +15,12 @@ const SOPList = (props) => {
 
   return (
     <div>
-      <h2>SOP List</h2>
+      <h2>SOPs for Department ID: {department_id} </h2>
       <table className="table table-striped table-bordered">
         <thead>
           <tr>
             <th>SOP ID</th>
             <th>SOP Title</th>
-            <th>Department ID</th>
           </tr>
         </thead>
         <tbody>
@@ -29,8 +28,7 @@ const SOPList = (props) => {
             <tr key={sop.sop_id}>
               <td>{sop.sop_id}</td>
               <td>{sop.sop_title}</td>
-              <td>{sop.department ? sop.department.department_id : ""}</td>
-            </tr>
+             </tr>
           ))}
         </tbody>
       </table>
@@ -39,3 +37,5 @@ const SOPList = (props) => {
 };
 
 export default SOPList;
+
+
