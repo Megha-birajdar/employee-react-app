@@ -11,7 +11,27 @@ const SaveEmployee = () => {
     department: { department_id: "" },
     sops: [],
   });
+  const [deptId, setDeptId] = useState([{ sop_id: '', sop_title: '' }]);
 
+  const handleSopChange = (index, event) => {
+    const values = [...deptId];
+    values[index][event.target.name] = event.target.value;
+    setDeptId(values);
+  };
+  const handleSopTitleChange = (index, event) => {
+    const values = [...deptId];
+    values[index][event.target.name] = event.target.value;
+    setDeptId(values);
+  };
+  const addSopFields = () => {
+    setDeptId([...deptId, { sop_id: '', sop_title: '' }]);
+  };
+
+  const removeDepartmentFields = index => {
+    const values = [...deptId];
+    values.splice(index, 1);
+    setDeptId(values);
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee({
@@ -34,7 +54,7 @@ const SaveEmployee = () => {
         end_date: "",
         completed: false,
         department: { department_id: "" },
-        sops: [],
+        sops:deptId
       });
     } catch (error) {
       console.error("Error saving employee:", error);
@@ -111,6 +131,36 @@ const SaveEmployee = () => {
             }
           />
         </label>
+        <br />
+        {deptId.map((department, index) => (
+          <div key={index}>
+            <label>
+              SOP ID:
+              <input
+                type="text"
+                name="sop_id"
+                value={department.department_id}
+                onChange={(event) => handleSopChange(index, event)}
+              />
+            </label>
+            <label>
+              SOP Title:
+              <input
+                type="text"
+                name="sop_title"
+                value={department.department_id}
+                onChange={(event) => handleSopTitleChange(index, event)}
+              />
+            </label>
+            <button type="button" onClick={() => removeDepartmentFields(index)}>
+              Remove
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={addSopFields}>
+          Add SOP
+        </button>
+
         <br />
         <button type="submit">submit</button>
       </form>
