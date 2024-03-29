@@ -3,13 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SOPList from "./SOPList";
 import SaveEmployee from "./SaveEmployee";
-import UpdateEmployee from "./UpdateEmployee";
 import { useDispatch } from "react-redux";
 import { setEmployeeId } from "../Utils/employeeConfig";
 import DeleteEmployee from "./DeleteEmployee";
 import AddDepartment from "./AddDepartment";
 import AddSOPs from "./AddSOPs";
 import EmployeeSOPs from "./EmployeeSOPs";
+import DepartmentSOPList from "./DepartmentSOPList";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -21,6 +21,7 @@ const EmployeeList = () => {
   const [updateNewEmployee, setUpdateNewEmployee] = useState(false);
   const [addNewDepartment, setAddNewDepartment] = useState(false);
   const [addNewSop, setAddNewSop] = useState(false);
+  const [goToSop,setGoToSop] = useState(false)
 
 
   const dispatch = useDispatch();
@@ -54,6 +55,10 @@ const EmployeeList = () => {
   const handleAddSOPs = () => {
     setAddNewSop(true);
   };
+  const handleSOPList = () => {
+    setGoToSop(true);
+  };
+
 
   const handleUpdateEmployee = (employee_id) => {
     // Implement logic for updating an employee
@@ -72,16 +77,18 @@ const EmployeeList = () => {
   };
 
   return (
-    <div>
+     <div>
       {showEmployees && (
         <>
-          <h2>EmployeeList</h2>
           <button onClick={handleSaveEmployee}>Add Employee</button>
           {addNewEmployee && <SaveEmployee />}
           <button onClick={handleAddDepartment}>Add Department</button>
           {addNewDepartment && <AddDepartment />}
           <button onClick={handleAddSOPs}>Add SOPs</button>
           {addNewSop && <AddSOPs />}
+          <button onClick={handleSOPList}>Go To SOPList</button>
+          {goToSop && <SOPList />}
+          <h2>EmployeeList</h2>
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
@@ -134,11 +141,16 @@ const EmployeeList = () => {
           </table>
         </>
       )}
-       {!showEmployees && <SOPList department_id={selectedDepartment} />} 
+       {!showEmployees && <DepartmentSOPList department_id={selectedDepartment} />} 
        {showEmployeesop && <EmployeeSOPs employee_id={selectedEmployee} />}
     </div>
   );
 };
 
 export default EmployeeList;
+
+
+
+
+
 

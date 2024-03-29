@@ -3,11 +3,13 @@ import axios from "axios";
 
 const EmployeeSOPs = ({ employee_id }) => {
   const [sops, setSOPs] = useState([]);
-  
+
   useEffect(() => {
     const fetchSOPs = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/employees/${employee_id}/sops`);
+        const response = await axios.get(
+          `http://localhost:8080/api/employees/${employee_id}/sops`
+        );
         setSOPs(response.data);
       } catch (error) {
         console.error("Error fetching SOPs:", error);
@@ -25,14 +27,22 @@ const EmployeeSOPs = ({ employee_id }) => {
           <tr>
             <th>SOP ID</th>
             <th>SOP Title</th>
-           </tr>
+            <th>SOP Departments</th>
+            <th>Marks</th>
+          </tr>
         </thead>
         <tbody>
           {sops.map((sop) => (
             <tr key={sop.sop_id}>
-              <td>{sop.sop_id}</td>
+              <td> {sop.sop_id}</td>
               <td>{sop.sop_title}</td>
-              </tr>
+
+              <td>
+                {sop.departments.map((department) => (
+                  <li key={department.department_id}>{department.dept_name}</li>
+                ))}
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>
