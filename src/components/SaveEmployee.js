@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const SaveEmployee = () => {
+  const [sopId, setSopId] = useState([{ sop_id: "", sop_title: "" }]);
   const [employee, setEmployee] = useState({
     employee_id: "",
     employee_name: "",
@@ -9,40 +10,44 @@ const SaveEmployee = () => {
     end_date: "",
     completed: false,
     department: { department_id: "" },
-    sops: [],
+    sops: sopId,
   });
-  const [deptId, setDeptId] = useState([{ sop_id: '', sop_title: '' }]);
 
   const handleSopChange = (index, event) => {
-    const values = [...deptId];
+    const values = [...sopId];
     values[index][event.target.name] = event.target.value;
-    setDeptId(values);
-  };
-  const handleSopTitleChange = (index, event) => {
-    const values = [...deptId];
-    values[index][event.target.name] = event.target.value;
-    setDeptId(values);
-  };
-  const addSopFields = () => {
-    setDeptId([...deptId, { sop_id: '', sop_title: '' }]);
+    setSopId(values);
+    setEmployee({ ...employee, sops: values });
   };
 
-  const removeDepartmentFields = index => {
-    const values = [...deptId];
-    values.splice(index, 1);
-    setDeptId(values);
+  const handleSopTitleChange = (index, event) => {
+    const values = [...sopId];
+    values[index][event.target.name] = event.target.value;
+    setSopId(values);
+    setEmployee({ ...employee, sops: values });
   };
+
+  const addSopFields = () => {
+    setSopId([...sopId, { sop_id: "", sop_title: "" }]);
+  };
+
+  const removeSOPFields = (index) => {
+    const values = [...sopId];
+    values.splice(index, 1);
+    setSopId(values);
+    setEmployee({ ...employee, sops: values }); // Update employee state with updated SOPs
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployee({
       ...employee,
       [name]: value,
     });
-    console.log("employee", employee);
   };
 
   const handleSubmit = async (e) => {
-    //e.preventDefault();
+    e.preventDefault();
     try {
       await axios.post("http://localhost:8080/api/employees", employee);
       alert("Employee saved successfully!");
@@ -54,8 +59,9 @@ const SaveEmployee = () => {
         end_date: "",
         completed: false,
         department: { department_id: "" },
-        sops:deptId
+        sops: [],
       });
+      setSopId([{ sop_id: "", sop_title: "" }]);
     } catch (error) {
       console.error("Error saving employee:", error);
     }
@@ -64,7 +70,7 @@ const SaveEmployee = () => {
   return (
     <div>
       <h2>Add New Employee</h2>
-      <form onSubmit={() => handleSubmit()}>
+      <form onSubmit={handleSubmit}>
         <label>
           Employee ID:
           <input
@@ -132,14 +138,14 @@ const SaveEmployee = () => {
           />
         </label>
         <br />
-        {deptId.map((department, index) => (
+        {sopId.map((sop, index) => (
           <div key={index}>
             <label>
               SOP ID:
               <input
                 type="text"
                 name="sop_id"
-                value={department.department_id}
+                value={sop.sop_id}
                 onChange={(event) => handleSopChange(index, event)}
               />
             </label>
@@ -148,11 +154,11 @@ const SaveEmployee = () => {
               <input
                 type="text"
                 name="sop_title"
-                value={department.department_id}
+                value={sop.sop_title}
                 onChange={(event) => handleSopTitleChange(index, event)}
               />
             </label>
-            <button type="button" onClick={() => removeDepartmentFields(index)}>
+            <button type="button" onClick={() => removeSOPFields(index)}>
               Remove
             </button>
           </div>
@@ -160,15 +166,11 @@ const SaveEmployee = () => {
         <button type="button" onClick={addSopFields}>
           Add SOP
         </button>
-
         <br />
-        <button type="submit">submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
 export default SaveEmployee;
-
-
-

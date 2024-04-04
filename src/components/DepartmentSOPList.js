@@ -28,7 +28,7 @@ const DepartmentSOPList = (props) => {
             <tr key={sop.sop_id}>
               <td>{sop.sop_id}</td>
               <td>{sop.sop_title}</td>
-             </tr>
+            </tr>
           ))}
         </tbody>
       </table>
@@ -37,5 +37,3 @@ const DepartmentSOPList = (props) => {
 };
 
 export default DepartmentSOPList;
-
-
