@@ -94,8 +94,8 @@ const EmployeeList = () => {
               <tr>
                 <th>Employee ID</th>
                 <th>Employee Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
+                <th>Previous_Date</th>
+                <th>Upcoming_Date</th>
                 <th>Department ID</th>
                 <th>Training Status</th>
                 <th>Actions</th>

@@ -5,7 +5,14 @@
 //   const [sops, setSOPs] = useState([]);
 //   const [sopId, setSopId] = useState("");
 //   const [marks, setMarks] = useState(0);
+//   const [sopMarks, setSopMarks] = useState([]);
 
+//   useEffect(() => {
+//     axios
+//       .get(`http://localhost:8080/employee_sop_marks`)
+//       .then((response) => setSopMarks(response.data))
+//       .catch((error) => console.error("Error fetching marks:", error));
+//   }, []);
 //   useEffect(() => {
 //     const fetchSOPs = async () => {
 //       try {
@@ -20,23 +27,26 @@
 
 //     fetchSOPs();
 //   }, [employee_id]);
+//   const filteredResults = sopMarks.filter(
+//     (item) => item.employee_id === employee_id
+//   );
+//   console.log("sopMarks", filteredResults);
 
 //   const handleSubmit = async (e) => {
-//     console.log("megha", sopId);
-//     e.preventDefault();
+//     //e.preventDefault();
 //     try {
 //       await axios.post("http://localhost:8080/employee_sop_marks", {
 //         employee_id: employee_id,
 //         sop_id: sopId,
 //         marks: marks,
 //       });
+//       alert("Marks added successfully!");
 //       setSopId("");
 //       setMarks(0);
 //     } catch (error) {
 //       console.error("Error adding marks:", error);
 //     }
 //   };
-
 //   return (
 //     <div>
 //       <h2>SOPs for Employee ID: {employee_id}</h2>
@@ -46,6 +56,7 @@
 //             <th>SOP ID</th>
 //             <th>SOP Title</th>
 //             <th>SOP Departments</th>
+//             <th>Action</th>
 //             <th>Marks</th>
 //           </tr>
 //         </thead>
@@ -61,6 +72,10 @@
 //               </td>
 //               <td>
 //                 <button onClick={() => setSopId(sop.sop_id)}>Add Marks</button>
+//               </td>
+//               <td>
+//                 {filteredResults.find((sopid) => sopid.sop_id === sop.sop_id) &&
+//                   filteredResults.map((abc) => abc.marks)}
 //               </td>
 //             </tr>
 //           ))}
@@ -100,7 +115,6 @@
 // };
 // export default EmployeeSOPs;
 
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -108,7 +122,14 @@ const EmployeeSOPs = ({ employee_id }) => {
   const [sops, setSOPs] = useState([]);
   const [sopId, setSopId] = useState("");
   const [marks, setMarks] = useState(0);
+  const [sopMarks, setSopMarks] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/employee_sop_marks`)
+      .then((response) => setSopMarks(response.data))
+      .catch((error) => console.error("Error fetching marks:", error));
+  }, []);
   useEffect(() => {
     const fetchSOPs = async () => {
       try {
@@ -123,25 +144,30 @@ const EmployeeSOPs = ({ employee_id }) => {
 
     fetchSOPs();
   }, [employee_id]);
+  const filteredResults = sopMarks.filter(
+    (item) => item.employee.employee_id === employee_id
+  );
+  console.log("sopMarks", filteredResults);
 
   const handleSubmit = async (e) => {
     //e.preventDefault();
     try {
       await axios.post("http://localhost:8080/employee_sop_marks", {
-        employee_id: employee_id,
-        sop_id: sopId,
-        marks: marks,
+   employee: {
+      employee_id: employee_id,
+      },
+   sop: {
+      sop_id: sopId,
+      },
+  marks: marks,
       });
       alert("Marks added successfully!");
       setSopId("");
       setMarks(0);
-      // After successful submission, you might want to refresh the SOPs list
-      // You can either call the fetchSOPs function again or perform another API request to get updated data
     } catch (error) {
       console.error("Error adding marks:", error);
     }
   };
-
   return (
     <div>
       <h2>SOPs for Employee ID: {employee_id}</h2>
@@ -151,8 +177,8 @@ const EmployeeSOPs = ({ employee_id }) => {
             <th>SOP ID</th>
             <th>SOP Title</th>
             <th>SOP Departments</th>
+            <th>Action</th>
             <th>Marks</th>
-            <th>Action</th> {/* Add this new column for adding marks */}
           </tr>
         </thead>
         <tbody>
@@ -165,9 +191,11 @@ const EmployeeSOPs = ({ employee_id }) => {
                   <li key={department.department_id}>{department.dept_name}</li>
                 ))}
               </td>
-              <td>{sop.marks}</td> {/* Display existing marks */}
               <td>
                 <button onClick={() => setSopId(sop.sop_id)}>Add Marks</button>
+              </td>
+              <td>
+                {filteredResults.find((sopid) => sopid.sop.sop_id === sop.sop_id)?.marks}
               </td>
             </tr>
           ))}
@@ -175,7 +203,7 @@ const EmployeeSOPs = ({ employee_id }) => {
       </table>
       {sopId && (
         <div>
-          <form onSubmit={()=>handleSubmit()}>
+          <form onSubmit={() => handleSubmit()}>
             <div>
               <label>Employee ID:</label>
               <input
@@ -185,6 +213,7 @@ const EmployeeSOPs = ({ employee_id }) => {
                 disabled
               />
             </div>
+            
             <div>
               <label>SOP ID:</label>
               <input type="text" name="sop_id" value={sopId} disabled />
