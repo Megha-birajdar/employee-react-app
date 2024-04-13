@@ -12,7 +12,7 @@ const App = () => {
     // {
     //   path: "/",
     //   element: <SOPList />,
-    // },
+    // }
     {
       path: "/",
       element: <EmployeeList />,

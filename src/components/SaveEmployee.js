@@ -8,7 +8,7 @@ const SaveEmployee = () => {
     employee_name: "",
     start_date: "",
     end_date: "",
-    completed: false,
+   
     department: { department_id: "" },
     sops: sopId,
   });
@@ -57,7 +57,7 @@ const SaveEmployee = () => {
         employee_name: "",
         start_date: "",
         end_date: "",
-        completed: false,
+      
         department: { department_id: "" },
         sops: [],
       });
@@ -110,18 +110,7 @@ const SaveEmployee = () => {
             onChange={handleChange}
           />
         </label>
-        <br />
-        <label>
-          Completed:
-          <input
-            type="checkbox"
-            name="completed"
-            checked={employee.completed}
-            onChange={(e) =>
-              setEmployee({ ...employee, completed: e.target.checked })
-            }
-          />
-        </label>
+       
         <br />
         <label>
           Department ID:

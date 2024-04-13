@@ -34,6 +34,7 @@ const sopPdf={
                 <th>SOP ID</th>
                 <th>SOP Title</th>
                 <th>Departments</th>
+                <th>Marks</th>
               </tr>
             </thead>
             <tbody>
@@ -50,6 +51,7 @@ const sopPdf={
                       <li key={department.department_id}>{department.dept_name}</li>
                     ))}
                   </td>
+                  <td>{sop.marks}</td>
                 </tr>
               ))}
             </tbody>

@@ -4,13 +4,15 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 const UpdateEmployee = ({ onClose, onUpdate }) => {
+  const [sopId, setSopId] = useState([{ sop_id: "", sop_title: "" }]);
   const [employeeData, setEmployeeData] = useState({
     employee_name: "",
     start_date: "",
     end_date: "",
     department: { department_id: "" },
     completed: false,
-  });
+    sops: sopId,
+});
   const navigate = useNavigate();
   const employee_id = useSelector((store) => store.employeeId.updateEmployeeId);
 
@@ -36,6 +38,31 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
     }));
     console.log("employeeData", employeeData);
   };
+  const handleSopChange = (index, event) => {
+    const values = [...sopId];
+    values[index][event.target.name] = event.target.value;
+    setSopId(values);
+    setEmployeeData({ ...employeeData, sops: values });
+  };
+
+  const handleSopTitleChange = (index, event) => {
+    const values = [...sopId];
+    values[index][event.target.name] = event.target.value;
+    setSopId(values);
+    setEmployeeData({ ...employeeData, sops: values });
+  };
+
+  const addSopFields = () => {
+    setSopId([...sopId, { sop_id: "", sop_title: "" }]);
+  };
+
+  const removeSOPFields = (index) => {
+    const values = [...sopId];
+    values.splice(index, 1);
+    setSopId(values);
+    setEmployeeData({ ...employeeData, sops: values }); // Update employee state with updated SOPs
+  };
+
   const handleButtonClick = () => {
     navigate("/");
   };
@@ -114,8 +141,36 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
               }))
             }
           />
+           {sopId.map((sop, index) => (
+          <div key={index}>
+            <label>
+              SOP ID:
+              <input
+                type="text"
+                name="sop_id"
+                value={sop.sop_id}
+                onChange={(event) => handleSopChange(index, event)}
+              />
+            </label>
+            <label>
+              SOP Title:
+              <input
+                type="text"
+                name="sop_title"
+                value={sop.sop_title}
+                onChange={(event) => handleSopTitleChange(index, event)}
+              />
+            </label>
+            <button type="button" onClick={() => removeSOPFields(index)}>
+              Remove
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={addSopFields}>
+          Add SOP
+        </button>
         </div>
-        <button type="submit">Submit</button>
+      <button type="submit">Submit</button>
         <button type="button" onClick={onClose}>
           Cancel
         </button>
