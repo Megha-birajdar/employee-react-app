@@ -26,7 +26,7 @@ const App = () => {
     <Provider store={employeeStore}>
       <div className="app-container">
         <h1 className="centered-header">
-          Employees Training Management System
+          Employees Training Report With Status-2024
         </h1>
         <RouterProvider router={router} />
       </div>

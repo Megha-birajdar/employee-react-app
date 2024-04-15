@@ -10,9 +10,9 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
     start_date: "",
     end_date: "",
     department: { department_id: "" },
-    completed: false,
+
     sops: sopId,
-});
+  });
   const navigate = useNavigate();
   const employee_id = useSelector((store) => store.employeeId.updateEmployeeId);
 
@@ -60,7 +60,7 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
     const values = [...sopId];
     values.splice(index, 1);
     setSopId(values);
-    setEmployeeData({ ...employeeData, sops: values }); // Update employee state with updated SOPs
+    setEmployeeData({ ...employeeData, sops: values });
   };
 
   const handleButtonClick = () => {
@@ -115,7 +115,6 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
         </div>
         <div>
           <label>Department ID:</label>
-
           <input
             type="text"
             name="department_id"
@@ -129,48 +128,36 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
           />
         </div>
         <div>
-          <label>Training Status:</label>
-          <input
-            type="checkbox"
-            name="completed"
-            checked={employeeData.completed}
-            onChange={() =>
-              setEmployeeData((employeeData) => ({
-                ...employeeData,
-                completed: !employeeData.completed,
-              }))
-            }
-          />
-           {sopId.map((sop, index) => (
-          <div key={index}>
-            <label>
-              SOP ID:
-              <input
-                type="text"
-                name="sop_id"
-                value={sop.sop_id}
-                onChange={(event) => handleSopChange(index, event)}
-              />
-            </label>
-            <label>
-              SOP Title:
-              <input
-                type="text"
-                name="sop_title"
-                value={sop.sop_title}
-                onChange={(event) => handleSopTitleChange(index, event)}
-              />
-            </label>
-            <button type="button" onClick={() => removeSOPFields(index)}>
-              Remove
-            </button>
-          </div>
-        ))}
-        <button type="button" onClick={addSopFields}>
-          Add SOP
-        </button>
+          {sopId.map((sop, index) => (
+            <div key={index}>
+              <label>
+                SOP ID:
+                <input
+                  type="text"
+                  name="sop_id"
+                  value={sop.sop_id}
+                  onChange={(event) => handleSopChange(index, event)}
+                />
+              </label>
+              <label>
+                SOP Title:
+                <input
+                  type="text"
+                  name="sop_title"
+                  value={sop.sop_title}
+                  onChange={(event) => handleSopTitleChange(index, event)}
+                />
+              </label>
+              <button type="button" onClick={() => removeSOPFields(index)}>
+                Remove
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={addSopFields}>
+            Add SOP
+          </button>
         </div>
-      <button type="submit">Submit</button>
+        <button type="submit">Submit</button>
         <button type="button" onClick={onClose}>
           Cancel
         </button>

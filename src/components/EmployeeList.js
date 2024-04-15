@@ -27,13 +27,6 @@ const EmployeeList = () => {
     (store) => store.employeeMarks.EmployeeMarks
   );
   console.log("arrayEmployee", arrayEmployee);
-  // const isCompleted =
-  //   arrayEmployee.filter((data) => data.employee_id === "E002").length >
-  //   (0).map((data1) => data1.marks).every((marks) => marks >= 80);
-  // // const isCompleted =
-  // //   arrayEmployee.filter((data) => data.employee_id === "E002").length > 0;
-
-  // console.log("arrayEmployee1", isCompleted);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,16 +36,19 @@ const EmployeeList = () => {
       .then((response) => setEmployees(response.data))
       .catch((error) => console.error("Error fetching employees:", error));
   }, []);
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/empsopmarks`)
       .then((response) => dispatch(setEmployeeMarks(response.data)))
       .catch((error) => console.error("Error fetching marks:", error));
   }, []);
+
   const handleDepartmentClick = async (department_id) => {
     setShowEmployees(false);
     setSelectedDepartment(department_id);
   };
+
   const handleEmployeeClick = async (employee_id) => {
     console.log("employee", employee_id);
     setShowEmployeesop(true);
@@ -61,21 +57,22 @@ const EmployeeList = () => {
   };
 
   const handleSaveEmployee = () => {
-    // Implement logic for adding an employee
     setAddNewEmployee(true);
   };
+
   const handleAddDepartment = () => {
     setAddNewDepartment(true);
   };
+
   const handleAddSOPs = () => {
     setAddNewSop(true);
   };
+
   const handleSOPList = () => {
     setGoToSop(true);
   };
 
   const handleUpdateEmployee = (employee_id) => {
-    // Implement logic for updating an employee
     console.log("Update employee logic here for employee ID:", employee_id);
     setUpdateNewEmployee(true);
     dispatch(setEmployeeId(employee_id));
@@ -88,7 +85,14 @@ const EmployeeList = () => {
       employees.filter((employee) => employee.employee_id !== employee_id)
     );
   };
-
+  const showUpcomingDatePopup = (upcomingDate) => {
+    const oneMonthBefore = new Date(upcomingDate);
+    oneMonthBefore.setMonth(oneMonthBefore.getMonth() - 4);
+    const currentDate = new Date();
+    return (
+      currentDate >= oneMonthBefore && currentDate < new Date(upcomingDate)
+    );
+  };
   return (
     <div>
       {showEmployees && (
@@ -130,7 +134,14 @@ const EmployeeList = () => {
                   </td>
                   <td>{employee.employee_name}</td>
                   <td>{employee.start_date}</td>
-                  <td>{employee.end_date}</td>
+                  <td>
+                    {showUpcomingDatePopup(employee.end_date) && (
+                      <span style={{ color: "red" }}>{employee.end_date}</span>
+                    )}
+                    {!showUpcomingDatePopup(employee.end_date) && (
+                      <span>{employee.end_date}</span>
+                    )}
+                  </td>
                   <td>
                     <button
                       onClick={() =>

@@ -6,6 +6,7 @@ const EmployeeSOPs = ({ employee_id }) => {
   const [sopId, setSopId] = useState("");
   const [marks, setMarks] = useState(0);
   const [sopMarks, setSopMarks] = useState([]);
+  const [sopMarksId, setSopMarksId] = useState();
 
   useEffect(() => {
     axios
@@ -13,6 +14,7 @@ const EmployeeSOPs = ({ employee_id }) => {
       .then((response) => setSopMarks(response.data))
       .catch((error) => console.error("Error fetching marks:", error));
   }, []);
+  console.log("sopMarks", sopMarks);
   useEffect(() => {
     const fetchSOPs = async () => {
       try {
@@ -30,22 +32,43 @@ const EmployeeSOPs = ({ employee_id }) => {
   const filteredResults = sopMarks.filter(
     (item) => item.employee_id === employee_id
   );
-  console.log("sopMarks", filteredResults);
+  console.log(
+    "sopMarks123",
+    filteredResults.find((sopid) => sopid.sop_id === "S001")
+  );
 
   const handleSubmit = async (e) => {
-    try {
-      await axios.post("http://localhost:8080/api/empsopmarks", {
-        employee_id: employee_id,
+    if (!sopMarksId) {
+      try {
+        await axios.post("http://localhost:8080/api/empsopmarks", {
+          employee_id: employee_id,
 
-        sop_id: sopId,
+          sop_id: sopId,
 
-        marks: marks,
-      });
-      alert("Marks added successfully!");
-      setSopId("");
-      setMarks(0);
-    } catch (error) {
-      console.error("Error adding marks:", error);
+          marks: marks,
+        });
+        alert("Marks added successfully!");
+        setSopId("");
+        setMarks(0);
+      } catch (error) {
+        console.error("Error adding marks:", error);
+      }
+    } else {
+      try {
+        await axios.put(`http://localhost:8080/api/empsopmarks/${sopMarksId}`, {
+          id: sopMarksId,
+          employee_id: employee_id,
+
+          sop_id: sopId,
+
+          marks: marks,
+        });
+        alert("Marks updated successfully!");
+        setSopId("");
+        setMarks(0);
+      } catch (error) {
+        console.error("Error adding marks:", error);
+      }
     }
   };
   return (
@@ -74,7 +97,16 @@ const EmployeeSOPs = ({ employee_id }) => {
               <td>
                 {filteredResults.find((sopid) => sopid.sop_id === sop.sop_id)
                   ?.marks ? (
-                  <button onClick={() => setSopId(sop.sop_id)}>
+                  <button
+                    onClick={() => {
+                      setSopMarksId(
+                        filteredResults.find(
+                          (sopid) => sopid.sop_id === sop.sop_id
+                        )?.id
+                      );
+                      setSopId(sop.sop_id);
+                    }}
+                  >
                     Update Marks
                   </button>
                 ) : (
@@ -82,10 +114,6 @@ const EmployeeSOPs = ({ employee_id }) => {
                     Add Marks
                   </button>
                 )}
-                {/* <button onClick={() => setSopId(sop.sop_id)}>Add Marks</button>
-                <button onClick={() => setSopId(sop.sop_id)}>
-                  Update Marks
-                </button> */}
               </td>
               <td>
                 {
