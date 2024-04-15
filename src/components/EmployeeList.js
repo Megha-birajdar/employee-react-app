@@ -87,7 +87,7 @@ const EmployeeList = () => {
   };
   const showUpcomingDatePopup = (upcomingDate) => {
     const oneMonthBefore = new Date(upcomingDate);
-    oneMonthBefore.setMonth(oneMonthBefore.getMonth() - 4);
+    oneMonthBefore.setMonth(oneMonthBefore.getMonth() - 1);
     const currentDate = new Date();
     return (
       currentDate >= oneMonthBefore && currentDate < new Date(upcomingDate)

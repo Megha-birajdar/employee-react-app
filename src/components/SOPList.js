@@ -19,10 +19,11 @@ const SOPList = () => {
     setShowSops(false);
     setSelectedSop(sop_id);
   };
-const sopPdf={
-  "S001": "1BnoSDbyOi_yWWus1s_l6CpIVZFWgeS8P",
-  "S002":"1s345Q6-8l58jqvF_X_nsQIx_HobrqgN7"
-}
+  const sopPdf = {
+    S001: "1BnoSDbyOi_yWWus1s_l6CpIVZFWgeS8P",
+    S002: "1s345Q6-8l58jqvF_X_nsQIx_HobrqgN7",
+    S003: "1hurVUKlYfo73Zq7MpQiU4JFS4K74N4ow",
+  };
   return (
     <div>
       {showSops && (
@@ -34,24 +35,32 @@ const sopPdf={
                 <th>SOP ID</th>
                 <th>SOP Title</th>
                 <th>Departments</th>
-                <th>Marks</th>
               </tr>
             </thead>
             <tbody>
               {sops.map((sop) => (
                 <tr key={sop.sop_id}>
                   <td>
-                    <button onClick={() => handleSopClick(sop.sop_id)}>{sop.sop_id}</button>
+                    <button onClick={() => handleSopClick(sop.sop_id)}>
+                      {sop.sop_id}
+                    </button>
                   </td>
                   <td>
-                  <Link to={`https://drive.google.com/file/d/${sopPdf[sop.sop_id]}/view?usp=drive_link`}>{sop.sop_title}</Link>
+                    <Link
+                      to={`https://drive.google.com/file/d/${
+                        sopPdf[sop.sop_id]
+                      }/view?usp=drive_link`}
+                    >
+                      {sop.sop_title}
+                    </Link>
                   </td>
                   <td>
                     {sop.departments.map((department) => (
-                      <li key={department.department_id}>{department.dept_name}</li>
+                      <li key={department.department_id}>
+                        {department.dept_name}
+                      </li>
                     ))}
                   </td>
-                  <td>{sop.marks}</td>
                 </tr>
               ))}
             </tbody>
@@ -63,8 +72,3 @@ const sopPdf={
   );
 };
 export default SOPList;
-
-
-
-
-
