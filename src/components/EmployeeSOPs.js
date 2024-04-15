@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import SopEmployees from "./SOPEmployees";
 
 const EmployeeSOPs = ({ employee_id }) => {
   const [sops, setSOPs] = useState([]);
@@ -7,6 +9,8 @@ const EmployeeSOPs = ({ employee_id }) => {
   const [marks, setMarks] = useState(0);
   const [sopMarks, setSopMarks] = useState([]);
   const [sopMarksId, setSopMarksId] = useState();
+  const [showSops, setShowSops] = useState(true);
+  const [selectedSop, setSelectedSop] = useState(null);
 
   useEffect(() => {
     axios
@@ -15,7 +19,11 @@ const EmployeeSOPs = ({ employee_id }) => {
       .catch((error) => console.error("Error fetching marks:", error));
   }, []);
   console.log("sopMarks", sopMarks);
-  useEffect(() => {
+  const handleSopClick = async (sop_id) => {
+    setShowSops(false);
+    setSelectedSop(sop_id);
+  };
+useEffect(() => {
     const fetchSOPs = async () => {
       try {
         const response = await axios.get(
@@ -71,8 +79,15 @@ const EmployeeSOPs = ({ employee_id }) => {
       }
     }
   };
+  const sopPdf = {
+    S001: "1BnoSDbyOi_yWWus1s_l6CpIVZFWgeS8P",
+    S002: "1s345Q6-8l58jqvF_X_nsQIx_HobrqgN7",
+    S003: "1hurVUKlYfo73Zq7MpQiU4JFS4K74N4ow",
+  };
   return (
     <div>
+      {showSops &&(
+        <>
       <h2>SOPs for Employee ID: {employee_id}</h2>
       <table className="table table-striped table-bordered">
         <thead>
@@ -87,8 +102,20 @@ const EmployeeSOPs = ({ employee_id }) => {
         <tbody>
           {sops.map((sop) => (
             <tr key={sop.sop_id}>
-              <td>{sop.sop_id}</td>
-              <td>{sop.sop_title}</td>
+              <td>
+                    <button onClick={() => handleSopClick(sop.sop_id)}>
+                      {sop.sop_id}
+                    </button>
+                  </td>
+                  <td>
+                    <Link
+                      to={`https://drive.google.com/file/d/${
+                        sopPdf[sop.sop_id]
+                      }/view?usp=drive_link`}
+                    >
+                      {sop.sop_title}
+                    </Link>
+                  </td>
               <td>
                 {sop.departments.map((department) => (
                   <li key={department.department_id}>{department.dept_name}</li>
@@ -154,6 +181,9 @@ const EmployeeSOPs = ({ employee_id }) => {
           </form>
         </div>
       )}
+      </>
+      )}
+       {!showSops && <SopEmployees sop_id={selectedSop} />}
     </div>
   );
 };

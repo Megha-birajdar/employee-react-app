@@ -34,7 +34,7 @@ const SOPList = () => {
               <tr>
                 <th>SOP ID</th>
                 <th>SOP Title</th>
-                <th>Departments</th>
+                <th>SOP Departments</th>
               </tr>
             </thead>
             <tbody>
