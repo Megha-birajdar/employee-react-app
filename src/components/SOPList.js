@@ -19,11 +19,11 @@ const SOPList = () => {
     setShowSops(false);
     setSelectedSop(sop_id);
   };
-  const sopPdf = {
-    S001: "1BnoSDbyOi_yWWus1s_l6CpIVZFWgeS8P",
-    S002: "1s345Q6-8l58jqvF_X_nsQIx_HobrqgN7",
-    S003: "1hurVUKlYfo73Zq7MpQiU4JFS4K74N4ow",
-  };
+  // const sopPdf = {
+  //   S001: "1BnoSDbyOi_yWWus1s_l6CpIVZFWgeS8P",
+  //   S002: "1s345Q6-8l58jqvF_X_nsQIx_HobrqgN7",
+  //   S003: "1hurVUKlYfo73Zq7MpQiU4JFS4K74N4ow",
+  // };
   return (
     <div>
       {showSops && (
@@ -34,7 +34,7 @@ const SOPList = () => {
               <tr>
                 <th>SOP ID</th>
                 <th>SOP Title</th>
-                <th>SOP Departments</th>
+                <th>SOP Department</th>
               </tr>
             </thead>
             <tbody>
@@ -45,22 +45,12 @@ const SOPList = () => {
                       {sop.sop_id}
                     </button>
                   </td>
-                  <td>
+                  {/* <td>
                     <Link
-                      to={`https://drive.google.com/file/d/${
-                        sopPdf[sop.sop_id]
-                      }/view?usp=drive_link`}
-                    >
-                      {sop.sop_title}
-                    </Link>
-                  </td>
-                  <td>
-                    {sop.departments.map((department) => (
-                      <li key={department.department_id}>
-                        {department.dept_name}
-                      </li>
-                    ))}
-                  </td>
+                    to={`https://drive.google.com/file/d/${sopPdf[sop.sop_id] }/view?usp=drive_link`}>{sop.sop_title}</Link>
+                      </td>   */}
+                  <td>{sop.sop_title}</td>
+                  <td>{sop.department.dept_name}</td>
                 </tr>
               ))}
             </tbody>

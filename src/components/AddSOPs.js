@@ -1,79 +1,78 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
-function AddSOPs() {
-  const [sopId, setSopId] = useState('');
-  const [title, setTitle] = useState('');
- 
-  const [deptId, setDeptId] = useState([{ department_id: '', dept_name: '' }]);
+const AddSOPs = () => {
+  const [sop, setSop] = useState({
+    sop_id: "",
+    sop_title: "",
+    department: { department_id: "" },
+  });
 
-  const handleDepartmentChange = (index, event) => {
-    const values = [...deptId];
-    values[index][event.target.name] = event.target.value;
-    setDeptId(values);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSop({
+      ...sop,
+      [name]: value,
+    });
   };
 
-  const addDepartmentFields = () => {
-    setDeptId([...deptId, { department_id: '', dept_name: '' }]);
-  };
-
-  const removeDepartmentFields = index => {
-    const values = [...deptId];
-    values.splice(index, 1);
-    setDeptId(values);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = {
-      sop_id: sopId,
-      sop_title: title,
-      departments: deptId,
-      employees: []
-    };
-    console.log("megha",formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-    
-      await axios.post("http://localhost:8080/api/sops", formData);
-      alert("New sops added successfully!");
-      // Optionally, you can reset the form after submission
-      setSopId('');
-      setDeptId([{ department_id: '', dept_name: '' }]);
-      setTitle('');
+      await axios.post("http://localhost:8080/api/sops", sop);
+      alert("SOP saved successfully!");
+      setSop({
+        sop_id: "",
+        sop_title: "",
+        department: { department_id: "" },
+      });
     } catch (error) {
-      console.error("Error adding sop:", error);
+      console.error("Error saving sop:", error);
     }
-    
   };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        SOP ID:
-        <input type="text" value={sopId} onChange={(e) => setSopId(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        SOP Title:
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-      </label>
-      <br />
-      {deptId.map((department, index) => (
-        <div key={index}>
-          <label>
-            Department ID:
-            <input type="text" name="department_id" value={department.department_id} onChange={event => handleDepartmentChange(index, event)} />
-          </label>
-          
-          <button type="button" onClick={() => removeDepartmentFields(index)}>Remove</button>
-        </div>
-      ))}
-      <button type="button" onClick={addDepartmentFields}>Add Department</button>
-
-      <br />
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <h2>Add New SOP</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          SOP ID:
+          <input
+            type="text"
+            name="sop_id"
+            value={sop.sop_id}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          SOP Title:
+          <input
+            type="text"
+            name="sop_title"
+            value={sop.sop_title}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Department ID:
+          <input
+            type="text"
+            name="department_id"
+            value={sop.department.department_id}
+            onChange={(e) =>
+              setSop({
+                ...sop,
+                department: { department_id: e.target.value },
+              })
+            }
+          />
+        </label>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
-}
-export default AddSOPs;
+};
 
+export default AddSOPs;

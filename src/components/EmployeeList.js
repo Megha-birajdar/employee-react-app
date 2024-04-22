@@ -133,7 +133,7 @@ const EmployeeList = () => {
                     </button>
                   </td>
                   <td>{employee.employee_name}</td>
-                  <td>{employee.start_date}</td>
+                 <td>{employee.start_date}</td>
                   <td>
                     {showUpcomingDatePopup(employee.end_date) && (
                       <span style={{ color: "red" }}>{employee.end_date}</span>
