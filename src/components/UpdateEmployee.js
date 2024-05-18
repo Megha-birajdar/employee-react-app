@@ -4,15 +4,14 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 const UpdateEmployee = ({ onClose, onUpdate }) => {
-  const [sopId, setSopId] = useState([{ sop_id: "", sop_title: "" }]);
   const [employeeData, setEmployeeData] = useState({
     employee_name: "",
     start_date: "",
     end_date: "",
     department: { department_id: "" },
-
-    sops: sopId,
+    sops: [{ sop_id: "", sop_title: "" }],
   });
+
   const navigate = useNavigate();
   const employee_id = useSelector((store) => store.employeeId.updateEmployeeId);
 
@@ -29,7 +28,7 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
     };
     fetchEmployeeDetails();
   }, [employee_id]);
-
+  console.log("megha", employeeData);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEmployeeData((employeeData) => ({
@@ -39,27 +38,27 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
     console.log("employeeData", employeeData);
   };
   const handleSopChange = (index, event) => {
-    const values = [...sopId];
+    const values = [...employeeData.sops];
     values[index][event.target.name] = event.target.value;
-    setSopId(values);
     setEmployeeData({ ...employeeData, sops: values });
   };
 
   const handleSopTitleChange = (index, event) => {
-    const values = [...sopId];
+    const values = [...employeeData.sops];
     values[index][event.target.name] = event.target.value;
-    setSopId(values);
     setEmployeeData({ ...employeeData, sops: values });
   };
 
   const addSopFields = () => {
-    setSopId([...sopId, { sop_id: "", sop_title: "" }]);
+    setEmployeeData((prevState) => ({
+      ...prevState,
+      sops: [...prevState.sops, { sop_id: "", sop_title: "" }],
+    }));
   };
 
   const removeSOPFields = (index) => {
-    const values = [...sopId];
+    const values = [...employeeData.sops];
     values.splice(index, 1);
-    setSopId(values);
     setEmployeeData({ ...employeeData, sops: values });
   };
 
@@ -128,7 +127,7 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
           />
         </div>
         <div>
-          {sopId.map((sop, index) => (
+          {employeeData?.sops?.map((sop, index) => (
             <div key={index}>
               <label>
                 SOP ID:

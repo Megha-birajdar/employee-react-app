@@ -23,6 +23,7 @@ const EmployeeList = () => {
   const [addNewDepartment, setAddNewDepartment] = useState(false);
   const [addNewSop, setAddNewSop] = useState(false);
   const [goToSop, setGoToSop] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState("");
   const arrayEmployee = useSelector(
     (store) => store.employeeMarks.EmployeeMarks
   );
@@ -85,6 +86,7 @@ const EmployeeList = () => {
       employees.filter((employee) => employee.employee_id !== employee_id)
     );
   };
+
   const showUpcomingDatePopup = (upcomingDate) => {
     const oneMonthBefore = new Date(upcomingDate);
     oneMonthBefore.setMonth(oneMonthBefore.getMonth() - 1);
@@ -93,6 +95,34 @@ const EmployeeList = () => {
       currentDate >= oneMonthBefore && currentDate < new Date(upcomingDate)
     );
   };
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const handleMonthChange = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+  console.log("selected", selectedMonth);
+  const filteredEmployees = selectedMonth
+    ? employees.filter((employee) => {
+        const endDate = new Date(employee.end_date);
+        console.log("chhutki", endDate);
+        return months[endDate.getMonth()] === selectedMonth;
+      })
+    : employees;
+
   return (
     <div>
       {showEmployees && (
@@ -106,6 +136,14 @@ const EmployeeList = () => {
           <button onClick={handleSOPList}>Go To SOPList</button>
           {goToSop && <SOPList />}
           <h2>EmployeeList</h2>
+          <div>
+            <select value={selectedMonth} onChange={handleMonthChange}>
+              <option value="">Select a month</option>
+              {months.map((month) => (
+                <option value={month}>{month}</option>
+              ))}
+            </select>
+          </div>
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
@@ -119,7 +157,7 @@ const EmployeeList = () => {
               </tr>
             </thead>
             <tbody>
-              {employees.map((employee) => (
+              {filteredEmployees.map((employee) => (
                 <tr key={employee.employee_id}>
                   <td>
                     <button
@@ -128,12 +166,11 @@ const EmployeeList = () => {
                         handleEmployeeClick(employee.employee_id);
                       }}
                     >
-                      {" "}
                       {employee.employee_id}
                     </button>
                   </td>
                   <td>{employee.employee_name}</td>
-                 <td>{employee.start_date}</td>
+                  <td>{employee.start_date}</td>
                   <td>
                     {showUpcomingDatePopup(employee.end_date) && (
                       <span style={{ color: "red" }}>{employee.end_date}</span>
