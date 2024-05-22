@@ -18,11 +18,11 @@ const EmployeeList = () => {
   const [showEmployeesop, setShowEmployeesop] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [addNewEmployee, setAddNewEmployee] = useState(false);
   const [updateNewEmployee, setUpdateNewEmployee] = useState(false);
-  const [addNewDepartment, setAddNewDepartment] = useState(false);
-  const [addNewSop, setAddNewSop] = useState(false);
-  const [goToSop, setGoToSop] = useState(false);
+  // const [addNewEmployee, setAddNewEmployee] = useState(false);
+  // const [addNewDepartment, setAddNewDepartment] = useState(false);
+  // const [addNewSop, setAddNewSop] = useState(false);
+  // const [goToSop, setGoToSop] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState("");
   const arrayEmployee = useSelector(
     (store) => store.employeeMarks.EmployeeMarks
@@ -58,19 +58,23 @@ const EmployeeList = () => {
   };
 
   const handleSaveEmployee = () => {
-    setAddNewEmployee(true);
+    navigate("/addEmployee");
+    // setAddNewEmployee(true);
   };
 
   const handleAddDepartment = () => {
-    setAddNewDepartment(true);
+    navigate("/addDepartment");
+    // setAddNewDepartment(true);
   };
 
   const handleAddSOPs = () => {
-    setAddNewSop(true);
+    navigate("/addSop");
+    //setAddNewSop(true);
   };
 
   const handleSOPList = () => {
-    setGoToSop(true);
+    navigate("/sopList");
+    //setGoToSop(true);
   };
 
   const handleUpdateEmployee = (employee_id) => {
@@ -128,13 +132,13 @@ const EmployeeList = () => {
       {showEmployees && (
         <>
           <button onClick={handleSaveEmployee}>Add Employee</button>
-          {addNewEmployee && <SaveEmployee />}
+          {/* {addNewEmployee && <SaveEmployee />} */}
           <button onClick={handleAddDepartment}>Add Department</button>
-          {addNewDepartment && <AddDepartment />}
+          {/* {addNewDepartment && <AddDepartment />} */}
           <button onClick={handleAddSOPs}>Add SOPs</button>
-          {addNewSop && <AddSOPs />}
+          {/* {addNewSop && <AddSOPs />} */}
           <button onClick={handleSOPList}>Go To SOPList</button>
-          {goToSop && <SOPList />}
+          {/* {goToSop && <SOPList />} */}
           <h2>EmployeeList</h2>
           <div>
             <select value={selectedMonth} onChange={handleMonthChange}>
@@ -147,6 +151,7 @@ const EmployeeList = () => {
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
+                <th>SI_NO.</th>
                 <th>Employee ID</th>
                 <th>Employee Name</th>
                 <th>Previous_Date</th>
@@ -157,8 +162,9 @@ const EmployeeList = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredEmployees.map((employee) => (
+              {filteredEmployees.map((employee, index) => (
                 <tr key={employee.employee_id}>
+                  <td>{index + 1}</td>
                   <td>
                     <button
                       onClick={() => {

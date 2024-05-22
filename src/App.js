@@ -6,13 +6,14 @@ import EmployeeList from "./components/EmployeeList";
 import SOPList from "./components/SOPList";
 import "./App.css";
 import UpdateEmployee from "./components/UpdateEmployee";
+import SaveEmployee from "./components/SaveEmployee";
+import AddSOPs from "./components/AddSOPs";
+import AddDepartment from "./components/AddDepartment";
+import SignUp from "./SignUp";
+import Login from "./Login";
 
 const App = () => {
   const router = createBrowserRouter([
-    // {
-    //   path: "/",
-    //   element: <SOPList />,
-    // }
     {
       path: "/",
       element: <EmployeeList />,
@@ -21,6 +22,31 @@ const App = () => {
       path: "/UpdateEmployee",
       element: <UpdateEmployee />,
     },
+    {
+      path: "/sopList",
+      element: <SOPList />,
+    },
+    {
+      path: "/addEmployee",
+      element: <SaveEmployee />,
+    },
+    {
+      path: "/addSop",
+      element: <AddSOPs />,
+    },
+    {
+      path: "/addDepartment",
+      element: <AddDepartment />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+    },
+
   ]);
   return (
     <Provider store={employeeStore}>

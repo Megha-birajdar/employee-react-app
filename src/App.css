@@ -39,3 +39,45 @@
     transform: rotate(360deg);
   }
 }
+.signup-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(244, 244, 248);
+}
+.signup-form{
+  background: rgba(red, green, blue, alpha);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(red, green, blue, alpha);
+  text-align: center;
+}
+.signup-form h2{
+  color: aquamarine;
+}
+.signup-form label{
+  display: block;
+  margin: 10px 0;
+}
+.signup-form input{
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.signup-form button{
+  background-color: #2ecc71;
+  color: rgb(232, 231, 233);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.signup-form button:hover{
+  background-color: #27ae60;
+}
