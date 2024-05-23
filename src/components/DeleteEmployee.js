@@ -5,11 +5,14 @@ const DeleteEmployee = ({ employee_id, onDelete }) => {
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this employee?"
+    );
+    if (!confirmDelete) return;
+
     setLoading(true);
     try {
-      // Send a DELETE request to your backend API to delete the employee
       await axios.delete(`http://localhost:8080/api/employees/${employee_id}`);
-      // If deletion is successful, call the onDelete callback
       onDelete(employee_id);
       alert("Employee data deleted successfully!");
     } catch (error) {
