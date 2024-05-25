@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SopEmployees from "./SOPEmployees";
+import { useSelector } from "react-redux";
 
-const EmployeeSOPs = ({ employee_id }) => {
+const EmployeeSOPs = () => {
   const [sops, setSOPs] = useState([]);
   const [sopId, setSopId] = useState("");
   const [marks, setMarks] = useState(0);
@@ -10,6 +11,7 @@ const EmployeeSOPs = ({ employee_id }) => {
   const [sopMarksId, setSopMarksId] = useState();
   const [showSops, setShowSops] = useState(true);
   const [selectedSop, setSelectedSop] = useState(null);
+  const employee_id = useSelector((store) => store.employeeId.selectedEmployeeId);
 
   useEffect(() => {
     axios
@@ -18,10 +20,10 @@ const EmployeeSOPs = ({ employee_id }) => {
       .catch((error) => console.error("Error fetching marks:", error));
   }, []);
   console.log("sopMarks", sopMarks);
-  const handleSopClick = async (sop_id) => {
-    setShowSops(false);
-    setSelectedSop(sop_id);
-  };
+  // const handleSopClick = async (sop_id) => {
+  //   setShowSops(false);
+  //   setSelectedSop(sop_id);
+  // };
   useEffect(() => {
     const fetchSOPs = async () => {
       try {
@@ -45,6 +47,7 @@ const EmployeeSOPs = ({ employee_id }) => {
   );
 
   const handleSubmit = async (e) => {
+    //e.preventDefault();
     if (!sopMarksId) {
       try {
         await axios.post("http://localhost:8080/api/empsopmarks", {
@@ -97,9 +100,9 @@ const EmployeeSOPs = ({ employee_id }) => {
               {sops.map((sop) => (
                 <tr key={sop.sop_id}>
                   <td>
-                    <button onClick={() => handleSopClick(sop.sop_id)}>
-                      {sop.sop_id}
-                    </button>
+                    {/* <button onClick={() => handleSopClick(sop.sop_id)}> */}
+                    {sop.sop_id}
+                    {/* </button> */}
                   </td>
                   <td>{sop.sop_title}</td>
                   <td>{sop.department.dept_name}</td>

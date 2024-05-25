@@ -11,6 +11,8 @@ import AddSOPs from "./components/AddSOPs";
 import AddDepartment from "./components/AddDepartment";
 import SignUp from "./SignUp";
 import Login from "./Login";
+import EmployeeSOPs from "./components/EmployeeSOPs";
+import DepartmentSOPList from "./components/DepartmentSOPList";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -46,6 +48,14 @@ const App = () => {
       path: "/signup",
       element: <SignUp />,
     },
+    {
+      path: "/employeeSops",
+      element: <EmployeeSOPs />,
+    },
+    {
+      path: "/departmentSops",
+      element: <DepartmentSOPList />,
+    }
 
   ]);
   return (

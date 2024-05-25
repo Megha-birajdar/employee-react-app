@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
-const DepartmentSOPList = (props) => {
+const DepartmentSOPList = () => {
   const [sops, setSops] = useState([]);
-  const { department_id } = props;
+  const department_id=useSelector((store)=>store.employeeId.selectedDepartmentId);
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/departments/${department_id}/sops`)

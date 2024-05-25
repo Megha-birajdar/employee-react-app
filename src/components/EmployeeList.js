@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SOPList from "./SOPList";
 import SaveEmployee from "./SaveEmployee";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmployeeId } from "../Utils/employeeConfig";
+import { setEmployeeId, setSelectedDepartmentId, setSelectedEmployeeId } from "../Utils/employeeConfig";
 import DeleteEmployee from "./DeleteEmployee";
 import AddDepartment from "./AddDepartment";
 import AddSOPs from "./AddSOPs";
@@ -46,20 +46,24 @@ const EmployeeList = () => {
   }, []);
 
   const handleDepartmentClick = async (department_id) => {
-    setShowEmployees(false);
-    setSelectedDepartment(department_id);
+    dispatch(setSelectedDepartmentId(department_id));
+    navigate("/departmentSops");
+    //setShowEmployees(false);
+    //setSelectedDepartment(department_id);
   };
 
   const handleEmployeeClick = async (employee_id) => {
     console.log("employee", employee_id);
-    setShowEmployeesop(true);
-    setShowEmployees(false);
-    setSelectedEmployee(employee_id);
+    dispatch(setSelectedEmployeeId(employee_id));
+    navigate("/employeeSops");
+    //setShowEmployeesop(true);
+    //setShowEmployees(false);
+    //setSelectedEmployee(employee_id);
   };
 
   const handleSaveEmployee = () => {
     navigate("/addEmployee");
-    // setAddNewEmployee(true);
+    // setAddNewEmployee(true); 
   };
 
   const handleAddDepartment = () => {
@@ -168,7 +172,7 @@ const EmployeeList = () => {
                   <td>
                     <button
                       onClick={() => {
-                        setSelectedEmployee(employee.employee_id);
+                       // setSelectedEmployee(employee.employee_id);
                         handleEmployeeClick(employee.employee_id);
                       }}
                     >
@@ -224,10 +228,10 @@ const EmployeeList = () => {
           </table>
         </>
       )}
-      {!showEmployees && (
+      {/* {!showEmployees && (
         <DepartmentSOPList department_id={selectedDepartment} />
-      )}
-      {showEmployeesop && <EmployeeSOPs employee_id={selectedEmployee} />}
+      )} */}
+      {/* {showEmployeesop && <EmployeeSOPs employee_id={selectedEmployee} />} */}
     </div>
   );
 };
