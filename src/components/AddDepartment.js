@@ -13,14 +13,12 @@ const AddDepartment = () => {
       ...department,
       [name]: value,
     });
-    //console.log("employee",employee);
   };
   const handleSubmit = async (e) => {
     //e.preventDefault();
     try {
       await axios.post("http://localhost:8080/api/departments", department);
       alert("Department added successfully!");
-      // Optionally, you can reset the form after submission
       setDepartment({
         department_id: "",
         dept_name: "",

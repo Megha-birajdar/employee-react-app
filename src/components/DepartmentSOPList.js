@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const DepartmentSOPList = () => {
   const [sops, setSops] = useState([]);
-  const department_id=useSelector((store)=>store.employeeId.selectedDepartmentId);
+  const department_id = useSelector((store) => store.employeeId.selectedDepartmentId);
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/departments/${department_id}/sops`)

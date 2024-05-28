@@ -8,7 +8,6 @@ const SaveEmployee = () => {
     employee_name: "",
     start_date: "",
     end_date: "",
-   
     department: { department_id: "" },
     sops: sopId,
   });
@@ -35,7 +34,7 @@ const SaveEmployee = () => {
     const values = [...sopId];
     values.splice(index, 1);
     setSopId(values);
-    setEmployee({ ...employee, sops: values }); // Update employee state with updated SOPs
+    setEmployee({ ...employee, sops: values });
   };
 
   const handleChange = (e) => {
@@ -51,13 +50,11 @@ const SaveEmployee = () => {
     try {
       await axios.post("http://localhost:8080/api/employees", employee);
       alert("Employee saved successfully!");
-      // Optionally, you can reset the form after submission
       setEmployee({
         employee_id: "",
         employee_name: "",
         start_date: "",
         end_date: "",
-      
         department: { department_id: "" },
         sops: [],
       });
@@ -110,7 +107,6 @@ const SaveEmployee = () => {
             onChange={handleChange}
           />
         </label>
-       
         <br />
         <label>
           Department ID:

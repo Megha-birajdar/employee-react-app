@@ -20,10 +20,6 @@ const EmployeeSOPs = () => {
       .catch((error) => console.error("Error fetching marks:", error));
   }, []);
   console.log("sopMarks", sopMarks);
-  // const handleSopClick = async (sop_id) => {
-  //   setShowSops(false);
-  //   setSelectedSop(sop_id);
-  // };
   useEffect(() => {
     const fetchSOPs = async () => {
       try {
@@ -89,6 +85,7 @@ const EmployeeSOPs = () => {
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
+                <th>S_NO.</th>
                 <th>SOP ID</th>
                 <th>SOP Title</th>
                 <th>SOP Department</th>
@@ -97,12 +94,11 @@ const EmployeeSOPs = () => {
               </tr>
             </thead>
             <tbody>
-              {sops.map((sop) => (
+              {sops.map((sop, index) => (
                 <tr key={sop.sop_id}>
+                  <td>{index + 1}</td>
                   <td>
-                    {/* <button onClick={() => handleSopClick(sop.sop_id)}> */}
                     {sop.sop_id}
-                    {/* </button> */}
                   </td>
                   <td>{sop.sop_title}</td>
                   <td>{sop.department.dept_name}</td>

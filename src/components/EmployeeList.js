@@ -11,6 +11,7 @@ import AddSOPs from "./AddSOPs";
 import EmployeeSOPs from "./EmployeeSOPs";
 import DepartmentSOPList from "./DepartmentSOPList";
 import { setEmployeeMarks } from "../Utils/employeeMarks";
+import DepartmentList from "./DepartmentList";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -19,10 +20,7 @@ const EmployeeList = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [updateNewEmployee, setUpdateNewEmployee] = useState(false);
-  // const [addNewEmployee, setAddNewEmployee] = useState(false);
-  // const [addNewDepartment, setAddNewDepartment] = useState(false);
-  // const [addNewSop, setAddNewSop] = useState(false);
-  // const [goToSop, setGoToSop] = useState(false);
+  const [goToDepartment, setGoToDepartment] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState("");
   const arrayEmployee = useSelector(
     (store) => store.employeeMarks.EmployeeMarks
@@ -48,37 +46,31 @@ const EmployeeList = () => {
   const handleDepartmentClick = async (department_id) => {
     dispatch(setSelectedDepartmentId(department_id));
     navigate("/departmentSops");
-    //setShowEmployees(false);
-    //setSelectedDepartment(department_id);
   };
 
   const handleEmployeeClick = async (employee_id) => {
     console.log("employee", employee_id);
     dispatch(setSelectedEmployeeId(employee_id));
     navigate("/employeeSops");
-    //setShowEmployeesop(true);
-    //setShowEmployees(false);
-    //setSelectedEmployee(employee_id);
   };
 
   const handleSaveEmployee = () => {
     navigate("/addEmployee");
-    // setAddNewEmployee(true); 
   };
 
   const handleAddDepartment = () => {
     navigate("/addDepartment");
-    // setAddNewDepartment(true);
   };
 
   const handleAddSOPs = () => {
     navigate("/addSop");
-    //setAddNewSop(true);
   };
 
   const handleSOPList = () => {
     navigate("/sopList");
-    //setGoToSop(true);
+  };
+  const handleDepartmentList = () => {
+    setGoToDepartment(true);
   };
 
   const handleUpdateEmployee = (employee_id) => {
@@ -125,10 +117,10 @@ const EmployeeList = () => {
   console.log("selected", selectedMonth);
   const filteredEmployees = selectedMonth
     ? employees.filter((employee) => {
-        const endDate = new Date(employee.end_date);
-        console.log("chhutki", endDate);
-        return months[endDate.getMonth()] === selectedMonth;
-      })
+      const endDate = new Date(employee.end_date);
+      console.log("chhutki", endDate);
+      return months[endDate.getMonth()] === selectedMonth;
+    })
     : employees;
 
   return (
@@ -136,13 +128,11 @@ const EmployeeList = () => {
       {showEmployees && (
         <>
           <button onClick={handleSaveEmployee}>Add Employee</button>
-          {/* {addNewEmployee && <SaveEmployee />} */}
           <button onClick={handleAddDepartment}>Add Department</button>
-          {/* {addNewDepartment && <AddDepartment />} */}
           <button onClick={handleAddSOPs}>Add SOPs</button>
-          {/* {addNewSop && <AddSOPs />} */}
-          <button onClick={handleSOPList}>Go To SOPList</button>
-          {/* {goToSop && <SOPList />} */}
+          <button onClick={handleSOPList}>SOPList</button>
+          <button onClick={handleDepartmentList}>DepartmentList</button>
+          {goToDepartment && <DepartmentList />}
           <h2>EmployeeList</h2>
           <div>
             <select value={selectedMonth} onChange={handleMonthChange}>
@@ -172,7 +162,6 @@ const EmployeeList = () => {
                   <td>
                     <button
                       onClick={() => {
-                       // setSelectedEmployee(employee.employee_id);
                         handleEmployeeClick(employee.employee_id);
                       }}
                     >
@@ -202,12 +191,12 @@ const EmployeeList = () => {
                     {arrayEmployee.filter(
                       (data) => data.employee_id === employee.employee_id
                     ).length > 0 &&
-                    arrayEmployee
-                      .filter(
-                        (data) => data?.employee_id === employee.employee_id
-                      )
-                      .map((data1) => data1?.marks)
-                      .every((marks) => marks >= 80)
+                      arrayEmployee
+                        .filter(
+                          (data) => data?.employee_id === employee.employee_id
+                        )
+                        .map((data1) => data1?.marks)
+                        .every((marks) => marks >= 80)
                       ? "✅"
                       : "❌"}
                   </td>
@@ -228,10 +217,6 @@ const EmployeeList = () => {
           </table>
         </>
       )}
-      {/* {!showEmployees && (
-        <DepartmentSOPList department_id={selectedDepartment} />
-      )} */}
-      {/* {showEmployeesop && <EmployeeSOPs employee_id={selectedEmployee} />} */}
     </div>
   );
 };
