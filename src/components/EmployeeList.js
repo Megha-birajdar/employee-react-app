@@ -45,12 +45,14 @@ const EmployeeList = () => {
 
   const handleDepartmentClick = async (department_id) => {
     dispatch(setSelectedDepartmentId(department_id));
+    localStorage.setItem('departmentId', JSON.stringify(department_id));
     navigate("/departmentSops");
   };
 
   const handleEmployeeClick = async (employee_id) => {
     console.log("employee", employee_id);
     dispatch(setSelectedEmployeeId(employee_id));
+    localStorage.setItem('employeeId', JSON.stringify(employee_id));
     navigate("/employeeSops");
   };
 

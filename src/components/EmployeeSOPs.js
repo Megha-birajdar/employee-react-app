@@ -11,8 +11,8 @@ const EmployeeSOPs = () => {
   const [sopMarksId, setSopMarksId] = useState();
   const [showSops, setShowSops] = useState(true);
   const [selectedSop, setSelectedSop] = useState(null);
-  const employee_id = useSelector((store) => store.employeeId.selectedEmployeeId);
-
+  //const employee_id = useSelector((store) => store.employeeId.selectedEmployeeId);
+  const employee_id = JSON.parse(localStorage.getItem('employeeId'));
   useEffect(() => {
     axios
       .get(`http://localhost:8080/api/empsopmarks`)

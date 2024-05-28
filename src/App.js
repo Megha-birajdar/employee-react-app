@@ -13,59 +13,13 @@ import SignUp from "./SignUp";
 import Login from "./Login";
 import EmployeeSOPs from "./components/EmployeeSOPs";
 import DepartmentSOPList from "./components/DepartmentSOPList";
+import MainContainer from "./components/MainContainer";
 
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <EmployeeList />,
-    },
-    {
-      path: "/UpdateEmployee",
-      element: <UpdateEmployee />,
-    },
-    {
-      path: "/sopList",
-      element: <SOPList />,
-    },
-    {
-      path: "/addEmployee",
-      element: <SaveEmployee />,
-    },
-    {
-      path: "/addSop",
-      element: <AddSOPs />,
-    },
-    {
-      path: "/addDepartment",
-      element: <AddDepartment />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/signup",
-      element: <SignUp />,
-    },
-    {
-      path: "/employeeSops",
-      element: <EmployeeSOPs />,
-    },
-    {
-      path: "/departmentSops",
-      element: <DepartmentSOPList />,
-    }
 
-  ]);
   return (
     <Provider store={employeeStore}>
-      <div className="app-container">
-        <h1 className="centered-header">
-          Employees Training Report With Status-2024
-        </h1>
-        <RouterProvider router={router} />
-      </div>
+      <MainContainer />
     </Provider>
   );
 };
