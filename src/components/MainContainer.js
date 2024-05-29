@@ -11,6 +11,7 @@ import Login from "../Login";
 import EmployeeSOPs from "./EmployeeSOPs";
 import DepartmentSOPList from "./DepartmentSOPList";
 import SignUp from "../SignUp";
+import DepartmentList from "./DepartmentList";
 
 const MainContainer = () => {
     const router = createBrowserRouter([
@@ -53,6 +54,10 @@ const MainContainer = () => {
         {
             path: "/departmentSops",
             element: <DepartmentSOPList />,
+        },
+        {
+            path: "/deptList",
+            element: <DepartmentList />
         }
 
     ]);

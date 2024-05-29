@@ -21,13 +21,15 @@ const DepartmentSOPList = () => {
       <table className="table table-striped table-bordered">
         <thead>
           <tr>
+            <th>S_NO.</th>
             <th>SOP ID</th>
             <th>SOP Title</th>
           </tr>
         </thead>
         <tbody>
-          {sops.map((sop) => (
+          {sops.map((sop,index) => (
             <tr key={sop.sop_id}>
+              <td>{index+1}</td>
               <td>{sop.sop_id}</td>
               <td>{sop.sop_title}</td>
             </tr>

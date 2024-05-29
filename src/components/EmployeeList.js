@@ -20,7 +20,7 @@ const EmployeeList = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [updateNewEmployee, setUpdateNewEmployee] = useState(false);
-  const [goToDepartment, setGoToDepartment] = useState(false);
+  //const [goToDepartment, setGoToDepartment] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState("");
   const arrayEmployee = useSelector(
     (store) => store.employeeMarks.EmployeeMarks
@@ -72,7 +72,8 @@ const EmployeeList = () => {
     navigate("/sopList");
   };
   const handleDepartmentList = () => {
-    setGoToDepartment(true);
+    navigate("/deptList");
+    //setGoToDepartment(true);
   };
 
   const handleUpdateEmployee = (employee_id) => {
@@ -134,7 +135,7 @@ const EmployeeList = () => {
           <button onClick={handleAddSOPs}>Add SOPs</button>
           <button onClick={handleSOPList}>SOPList</button>
           <button onClick={handleDepartmentList}>DepartmentList</button>
-          {goToDepartment && <DepartmentList />}
+          {/* {goToDepartment && <DepartmentList />} */}
           <h2>EmployeeList</h2>
           <div>
             <select value={selectedMonth} onChange={handleMonthChange}>
