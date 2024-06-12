@@ -23,7 +23,7 @@ const DeleteEmployee = ({ employee_id, onDelete }) => {
   };
 
   return (
-    <button onClick={handleDelete} disabled={loading}>
+    <button className="border-2  border-black rounded-md text-red-600 px-2 m-1" onClick={handleDelete} disabled={loading}>
       {loading ? "Deleting..." : "Delete"}
     </button>
   );

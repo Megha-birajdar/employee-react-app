@@ -33,9 +33,9 @@ const SopEmployees = (props) => {
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee,index) => (
+          {employees.map((employee, index) => (
             <tr key={employee.employee_id}>
-              <td>{index+1}</td>
+              <td>{index + 1}</td>
               <td>{employee.employee_id}</td>
               <td>{employee.employee_name}</td>
               <td>{employee.start_date}</td>

@@ -22,8 +22,8 @@ const DepartmentList = () => {
         <div>
             {showDepartments && (
                 <>
-                    <h1>List of Departments</h1>
-                    <table className="table table-striped table-bordered">
+                    <h1 className="text-blue-600">List Of All Departments</h1>
+                    <table className="table table-striped table-bordered border-black">
                         <thead>
                             <tr>
                                 <th>S_NO.</th>
@@ -36,7 +36,7 @@ const DepartmentList = () => {
                                 <tr key={department.department_id}>
                                     <td>{index + 1}</td>
                                     <td>
-                                        <button onClick={() => handleDepartmentClick(department.department_id)}>
+                                        <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400" onClick={() => handleDepartmentClick(department.department_id)}>
                                             {department.department_id}
                                         </button>
                                     </td>

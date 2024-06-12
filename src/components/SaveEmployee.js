@@ -66,93 +66,86 @@ const SaveEmployee = () => {
 
   return (
     <div>
-      <h2>Add New Employee</h2>
+      <h2 className="text-blue-600">Add New Employee</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Employee ID:
-          <input
-            type="text"
-            name="employee_id"
-            value={employee.employee_id}
-            onChange={handleChange}
-          />
-        </label>
+        <label className="font-bold">
+          Employee ID:</label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="text"
+          name="employee_id"
+          value={employee.employee_id}
+          onChange={handleChange}
+        />
         <br />
-        <label>
-          Employee Name:
-          <input
-            type="text"
-            name="employee_name"
-            value={employee.employee_name}
-            onChange={handleChange}
-          />
-        </label>
+        <label className="font-bold">
+          Employee Name: </label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="text"
+          name="employee_name"
+          value={employee.employee_name}
+          onChange={handleChange}
+        />
         <br />
-        <label>
-          Start Date:
-          <input
-            type="date"
-            name="start_date"
-            value={employee.start_date}
-            onChange={handleChange}
-          />
-        </label>
+        <label className="font-bold">
+          Start Date: </label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="date"
+          name="start_date"
+          value={employee.start_date}
+          onChange={handleChange}
+        />
         <br />
-        <label>
-          End Date:
-          <input
-            type="date"
-            name="end_date"
-            value={employee.end_date}
-            onChange={handleChange}
-          />
-        </label>
+        <label className="font-bold">
+          End Date:</label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="date"
+          name="end_date"
+          value={employee.end_date}
+          onChange={handleChange}
+        />
         <br />
-        <label>
-          Department ID:
-          <input
-            type="text"
-            name="department_id"
-            value={employee.department.department_id}
-            onChange={(e) =>
-              setEmployee({
-                ...employee,
-                department: { department_id: e.target.value },
-              })
-            }
-          />
-        </label>
+        <label className="font-bold">
+          Department ID: </label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="text"
+          name="department_id"
+          value={employee.department.department_id}
+          onChange={(e) =>
+            setEmployee({
+              ...employee,
+              department: { department_id: e.target.value },
+            })
+          }
+        />
         <br />
         {sopId.map((sop, index) => (
           <div key={index}>
-            <label>
-              SOP ID:
-              <input
-                type="text"
-                name="sop_id"
-                value={sop.sop_id}
-                onChange={(event) => handleSopChange(index, event)}
-              />
-            </label>
-            <label>
-              SOP Title:
-              <input
-                type="text"
-                name="sop_title"
-                value={sop.sop_title}
-                onChange={(event) => handleSopTitleChange(index, event)}
-              />
-            </label>
-            <button type="button" onClick={() => removeSOPFields(index)}>
+            <label className="font-bold" >
+              SOP ID:</label>
+            <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+              type="text"
+              name="sop_id"
+              value={sop.sop_id}
+              onChange={(event) => handleSopChange(index, event)}
+            />
+            <label className="font-bold pl-2">
+              SOP Title:</label>
+            <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+              type="text"
+              name="sop_title"
+              value={sop.sop_title}
+              onChange={(event) => handleSopTitleChange(index, event)}
+            />
+            <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400" type="button" onClick={() => removeSOPFields(index)}>
               Remove
             </button>
           </div>
         ))}
-        <button type="button" onClick={addSopFields}>
+        <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400" type="button" onClick={addSopFields}>
           Add SOP
         </button>
         <br />
-        <button type="submit">Submit</button>
+        <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400" type="submit">Submit</button>
       </form>
     </div>
   );

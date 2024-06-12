@@ -29,29 +29,28 @@ const AddDepartment = () => {
   };
   return (
     <div>
-      <h2>Add New Department</h2>
+      <h2 className="text-blue-600">Add New Department</h2>
       <form onSubmit={() => handleSubmit()}>
-        <label>
-          Department ID:
-          <input
-            type="text"
-            name="department_id"
-            value={department.department_id}
-            onChange={handleChange}
-          />
-        </label>
+        <label className="font-bold">
+          Department ID:</label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="text"
+          name="department_id"
+          value={department.department_id}
+          onChange={handleChange}
+        />
         <br />
-        <label>
-          Department Name:
-          <input
-            type="text"
-            name="dept_name"
-            value={department.dept_name}
-            onChange={handleChange}
-          />
-        </label>
+        <label className="font-bold">
+          Department Name:  </label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="text"
+          name="dept_name"
+          value={department.dept_name}
+          onChange={handleChange}
+        />
         <br />
-        <button type="submit">submit</button>
+        <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="submit">submit</button>
       </form>
     </div>
   );

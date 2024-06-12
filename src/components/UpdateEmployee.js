@@ -63,7 +63,7 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
   };
 
   const handleButtonClick = () => {
-    navigate("/");
+    navigate("/employee/employeeList");
   };
   const handleSubmit = async (e) => {
     //e.preventDefault();
@@ -84,8 +84,8 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
       <h2>Update Employee</h2>
       <form onSubmit={() => handleSubmit()}>
         <div>
-          <label>Employee Name:</label>
-          <input
+          <label className="font-bold">Employee Name:</label>
+          <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset  ring-black placeholder:text-gray-400"
             type="text"
             name="employee_name"
             value={employeeData.employee_name}
@@ -94,8 +94,8 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
           />
         </div>
         <div>
-          <label>Start Date:</label>
-          <input
+          <label className="font-bold">Start Date:</label>
+          <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset  ring-black placeholder:text-gray-400"
             type="date"
             name="start_date"
             value={employeeData.start_date}
@@ -104,8 +104,8 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
           />
         </div>
         <div>
-          <label>End Date:</label>
-          <input
+          <label className="font-bold">End Date:</label>
+          <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset  ring-black placeholder:text-gray-400"
             type="date"
             name="end_date"
             value={employeeData.end_date}
@@ -113,8 +113,8 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
           />
         </div>
         <div>
-          <label>Department ID:</label>
-          <input
+          <label className="font-bold">Department ID:</label>
+          <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset ring-black  placeholder:text-gray-400"
             type="text"
             name="department_id"
             value={employeeData.department.department_id}
@@ -129,39 +129,40 @@ const UpdateEmployee = ({ onClose, onUpdate }) => {
         <div>
           {employeeData?.sops?.map((sop, index) => (
             <div key={index}>
-              <label>
-                SOP ID:
-                <input
-                  type="text"
-                  name="sop_id"
-                  value={sop.sop_id}
-                  onChange={(event) => handleSopChange(index, event)}
-                />
-              </label>
-              <label>
-                SOP Title:
-                <input
-                  type="text"
-                  name="sop_title"
-                  value={sop.sop_title}
-                  onChange={(event) => handleSopTitleChange(index, event)}
-                />
-              </label>
-              <button type="button" onClick={() => removeSOPFields(index)}>
+              <label className="font-bold">SOP ID: </label>
+              <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset  ring-black placeholder:text-gray-400"
+                type="text"
+                name="sop_id"
+                value={sop.sop_id}
+                onChange={(event) => handleSopChange(index, event)}
+              />
+              <label className="font-bold pl-2">
+                SOP Title:</label>
+              <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+                type="text"
+                name="sop_title"
+                value={sop.sop_title}
+                onChange={(event) => handleSopTitleChange(index, event)}
+              />
+              <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+                type="button" onClick={() => removeSOPFields(index)}>
                 Remove
               </button>
             </div>
           ))}
-          <button type="button" onClick={addSopFields}>
+          <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+            type="button"
+            onClick={addSopFields}>
             Add SOP
           </button>
         </div>
-        <button type="submit">Submit</button>
-        <button type="button" onClick={onClose}>
-          Cancel
+        <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="submit">
+          Submit
         </button>
       </form>
-      <button type="button" onClick={handleButtonClick}>
+      <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+        type="button" onClick={handleButtonClick}>
         Go To EmployeeList
       </button>
     </div>

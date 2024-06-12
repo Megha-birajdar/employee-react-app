@@ -21,5 +21,5 @@ const employeeConflig = createSlice({
   },
 });
 
-export const { setEmployeeId, setSelectedEmployeeId,setSelectedDepartmentId} = employeeConflig.actions;
+export const { setEmployeeId, setSelectedEmployeeId, setSelectedDepartmentId } = employeeConflig.actions;
 export default employeeConflig.reducer;

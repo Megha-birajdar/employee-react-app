@@ -22,7 +22,7 @@ const SOPList = () => {
     <div>
       {showSops && (
         <>
-          <h1>List of SOPs</h1>
+          <h1 className="text-blue-600">List Of All SOPs</h1>
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
@@ -37,7 +37,7 @@ const SOPList = () => {
                 <tr key={sop.sop_id}>
                   <td>{index + 1}</td>
                   <td>
-                    <button onClick={() => handleSopClick(sop.sop_id)}>
+                    <button className="border-2 border-black rounded-lg px-2 m-1" onClick={() => handleSopClick(sop.sop_id)}>
                       {sop.sop_id}
                     </button>
                   </td>

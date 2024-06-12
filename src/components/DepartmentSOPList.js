@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 const DepartmentSOPList = () => {
   const [sops, setSops] = useState([]);
-  //const department_id = useSelector((store) => store.employeeId.selectedDepartmentId);
   const department_id = JSON.parse(localStorage.getItem('departmentId'));
   useEffect(() => {
     axios
@@ -27,9 +25,9 @@ const DepartmentSOPList = () => {
           </tr>
         </thead>
         <tbody>
-          {sops.map((sop,index) => (
+          {sops.map((sop, index) => (
             <tr key={sop.sop_id}>
-              <td>{index+1}</td>
+              <td>{index + 1}</td>
               <td>{sop.sop_id}</td>
               <td>{sop.sop_title}</td>
             </tr>

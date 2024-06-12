@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import SopEmployees from "./SOPEmployees";
-import { useSelector } from "react-redux";
 
 const EmployeeSOPs = () => {
   const [sops, setSOPs] = useState([]);
@@ -11,7 +10,6 @@ const EmployeeSOPs = () => {
   const [sopMarksId, setSopMarksId] = useState();
   const [showSops, setShowSops] = useState(true);
   const [selectedSop, setSelectedSop] = useState(null);
-  //const employee_id = useSelector((store) => store.employeeId.selectedEmployeeId);
   const employee_id = JSON.parse(localStorage.getItem('employeeId'));
   useEffect(() => {
     axios
@@ -102,12 +100,11 @@ const EmployeeSOPs = () => {
                   </td>
                   <td>{sop.sop_title}</td>
                   <td>{sop.department.dept_name}</td>
-
                   <td>
                     {filteredResults.find(
                       (sopid) => sopid.sop_id === sop.sop_id
                     )?.marks ? (
-                      <button
+                      <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
                         onClick={() => {
                           setSopMarksId(
                             filteredResults.find(
@@ -120,7 +117,7 @@ const EmployeeSOPs = () => {
                         Update Marks
                       </button>
                     ) : (
-                      <button onClick={() => setSopId(sop.sop_id)}>
+                      <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400" onClick={() => setSopId(sop.sop_id)}>
                         Add Marks
                       </button>
                     )}
@@ -140,8 +137,8 @@ const EmployeeSOPs = () => {
             <div>
               <form onSubmit={() => handleSubmit()}>
                 <div>
-                  <label>Employee ID:</label>
-                  <input
+                  <label className="font-bold">Employee ID:</label>
+                  <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
                     type="text"
                     name="employee_id"
                     value={employee_id}
@@ -149,19 +146,23 @@ const EmployeeSOPs = () => {
                   />
                 </div>
                 <div>
-                  <label>SOP ID:</label>
-                  <input type="text" name="sop_id" value={sopId} disabled />
+                  <label className="font-bold">SOP ID:</label>
+                  <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+                    type="text"
+                    name="sop_id"
+                    value={sopId}
+                    disabled />
                 </div>
                 <div>
-                  <label>Marks:</label>
-                  <input
+                  <label className="font-bold">Marks:</label>
+                  <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
                     type="number"
                     name="marks"
                     value={marks}
                     onChange={(e) => setMarks(Number(e.target.value))}
                   />
                 </div>
-                <button type="submit">Submit</button>
+                <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400" type="submit">Submit</button>
               </form>
             </div>
           )}

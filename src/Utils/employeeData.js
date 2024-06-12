@@ -6,7 +6,7 @@ const employeeData = createSlice({
     EmployeeData: [],
   },
   reducers: {
-   setEmployeeData: (state, action) => {
+    setEmployeeData: (state, action) => {
       state.EmployeeData = action.payload;
     },
   },

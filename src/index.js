@@ -1,18 +1,83 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
+import React, { useEffect } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import EmployeeList from "./components/EmployeeList";
+import SOPList from "./components/SOPList";
+import "./App.css";
+import UpdateEmployee from "./components/UpdateEmployee";
+import SaveEmployee from "./components/SaveEmployee";
+import AddSOPs from "./components/AddSOPs";
+import AddDepartment from "./components/AddDepartment";
+import EmployeeSOPs from "./components/EmployeeSOPs";
+import DepartmentSOPList from "./components/DepartmentSOPList";
+import DepartmentList from "./components/DepartmentList";
+import Login from "./components/Login";
+import employeeStore from './Utils/employeeStore';
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const router = createBrowserRouter([
+
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "employee/employeeList",
+        element: <EmployeeList />,
+
+      },
+      {
+        path: "employee/employeeList/updateEmployee",
+        element: <UpdateEmployee />,
+      },
+      {
+        path: "employee/employeeList/sopList",
+        element: <SOPList />,
+      },
+      {
+        path: "employee/employeeList/addEmployee",
+        element: <SaveEmployee />,
+      },
+      {
+        path: "employee/employeeList/addSop",
+        element: <AddSOPs />,
+      },
+      {
+        path: "employee/employeeList/addDepartment",
+        element: <AddDepartment />,
+      },
+      {
+        path: "employee/employeeList/employeeSops",
+        element: <EmployeeSOPs />,
+      },
+      {
+        path: "employee/employeeList/departmentSops",
+        element: <DepartmentSOPList />,
+      },
+      {
+        path: "employee/employeeList/deptList",
+        element: <DepartmentList />
+      }
+    ],
+  }
+
+]);
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={employeeStore}>
+      <div className="app-container">
+        <h1 className="centered-header text-red-700">
+          Employees Training Report With Status
+        </h1>
+        <RouterProvider router={router} />
+      </div>
+    </Provider>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

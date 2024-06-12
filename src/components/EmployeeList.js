@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import SOPList from "./SOPList";
-import SaveEmployee from "./SaveEmployee";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmployeeId, setSelectedDepartmentId, setSelectedEmployeeId } from "../Utils/employeeConfig";
 import DeleteEmployee from "./DeleteEmployee";
-import AddDepartment from "./AddDepartment";
-import AddSOPs from "./AddSOPs";
-import EmployeeSOPs from "./EmployeeSOPs";
-import DepartmentSOPList from "./DepartmentSOPList";
 import { setEmployeeMarks } from "../Utils/employeeMarks";
-import DepartmentList from "./DepartmentList";
+
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -20,7 +14,6 @@ const EmployeeList = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [updateNewEmployee, setUpdateNewEmployee] = useState(false);
-  //const [goToDepartment, setGoToDepartment] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState("");
   const arrayEmployee = useSelector(
     (store) => store.employeeMarks.EmployeeMarks
@@ -46,41 +39,40 @@ const EmployeeList = () => {
   const handleDepartmentClick = async (department_id) => {
     dispatch(setSelectedDepartmentId(department_id));
     localStorage.setItem('departmentId', JSON.stringify(department_id));
-    navigate("/departmentSops");
+    navigate("departmentSops");
   };
 
   const handleEmployeeClick = async (employee_id) => {
     console.log("employee", employee_id);
     dispatch(setSelectedEmployeeId(employee_id));
     localStorage.setItem('employeeId', JSON.stringify(employee_id));
-    navigate("/employeeSops");
+    navigate("employeeSops");
   };
 
   const handleSaveEmployee = () => {
-    navigate("/addEmployee");
+    navigate("addEmployee");
   };
 
   const handleAddDepartment = () => {
-    navigate("/addDepartment");
+    navigate("addDepartment");
   };
 
   const handleAddSOPs = () => {
-    navigate("/addSop");
+    navigate("addSop");
   };
 
   const handleSOPList = () => {
-    navigate("/sopList");
+    navigate("sopList");
   };
   const handleDepartmentList = () => {
-    navigate("/deptList");
-    //setGoToDepartment(true);
+    navigate("deptList");
   };
 
   const handleUpdateEmployee = (employee_id) => {
     console.log("Update employee logic here for employee ID:", employee_id);
     setUpdateNewEmployee(true);
     dispatch(setEmployeeId(employee_id));
-    navigate("/UpdateEmployee");
+    navigate("updateEmployee");
   };
 
   const handleDeleteEmployee = (employee_id) => {
@@ -98,7 +90,15 @@ const EmployeeList = () => {
       currentDate >= oneMonthBefore && currentDate < new Date(upcomingDate)
     );
   };
-
+  const getDepartmentName = {
+    '01': 'QA',
+    '02': 'QC',
+    '03': 'MB',
+    '04': 'PR',
+    '05': 'ST',
+    '06': 'EN',
+    '07': 'AP'
+  }
   const months = [
     "January",
     "February",
@@ -130,15 +130,15 @@ const EmployeeList = () => {
     <div>
       {showEmployees && (
         <>
-          <button onClick={handleSaveEmployee}>Add Employee</button>
-          <button onClick={handleAddDepartment}>Add Department</button>
-          <button onClick={handleAddSOPs}>Add SOPs</button>
-          <button onClick={handleSOPList}>SOPList</button>
-          <button onClick={handleDepartmentList}>DepartmentList</button>
-          {/* {goToDepartment && <DepartmentList />} */}
+          <button className="border-2 border-black bg-gray-400 rounded-lg px-2 m-2" onClick={handleSaveEmployee}>Add Employee</button>
+          <button className="border-2 border-black bg-gray-400 rounded-lg px-2 m-2" onClick={handleAddDepartment}>Add Department</button>
+          <button className="border-2 border-black bg-gray-400 rounded-lg px-2 m-2" onClick={handleAddSOPs}>Add SOPs</button>
+          <button className="border-2 border-black bg-gray-400 rounded-lg px-2 m-2" onClick={handleSOPList}>SOPList</button>
+          <button className="border-2 border-black bg-gray-400 rounded-lg px-2 m-2" onClick={handleDepartmentList}>DepartmentList</button>
           <h2>EmployeeList</h2>
           <div>
-            <select value={selectedMonth} onChange={handleMonthChange}>
+            <select className="border-2 border-black px-2 m-2" value={selectedMonth} onChange={handleMonthChange}>
+              <h3>January Training Employees</h3>
               <option value="">Select a month</option>
               {months.map((month) => (
                 <option value={month}>{month}</option>
@@ -163,7 +163,7 @@ const EmployeeList = () => {
                 <tr key={employee.employee_id}>
                   <td>{index + 1}</td>
                   <td>
-                    <button
+                    <button className="border-2 border-black rounded-md px-2 m-1"
                       onClick={() => {
                         handleEmployeeClick(employee.employee_id);
                       }}
@@ -182,12 +182,12 @@ const EmployeeList = () => {
                     )}
                   </td>
                   <td>
-                    <button
+                    <button className="border-2 rounded-md border-black px-2 m-1"
                       onClick={() =>
                         handleDepartmentClick(employee.department.department_id)
                       }
                     >
-                      {employee.department.department_id}
+                      {getDepartmentName[employee.department.department_id]}
                     </button>
                   </td>
                   <td>
@@ -204,7 +204,7 @@ const EmployeeList = () => {
                       : "❌"}
                   </td>
                   <td>
-                    <button
+                    <button className="border-2 rounded-md border-black px-2 m-1"
                       onClick={() => handleUpdateEmployee(employee.employee_id)}
                     >
                       Update

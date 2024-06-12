@@ -32,44 +32,42 @@ const AddSOPs = () => {
   };
   return (
     <div>
-      <h2>Add New SOP</h2>
+      <h2 className="text-blue-600">Add New SOP</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          SOP ID:
-          <input
-            type="text"
-            name="sop_id"
-            value={sop.sop_id}
-            onChange={handleChange}
-          />
-        </label>
+        <label className="font-bold">
+          SOP ID: </label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="text"
+          name="sop_id"
+          value={sop.sop_id}
+          onChange={handleChange}
+        />
         <br />
-        <label>
-          SOP Title:
-          <input
-            type="text"
-            name="sop_title"
-            value={sop.sop_title}
-            onChange={handleChange}
-          />
-        </label>
+        <label className="font-bold">
+          SOP Title:</label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="text"
+          name="sop_title"
+          value={sop.sop_title}
+          onChange={handleChange}
+        />
         <br />
-        <label>
-          Department ID:
-          <input
-            type="text"
-            name="department_id"
-            value={sop.department.department_id}
-            onChange={(e) =>
-              setSop({
-                ...sop,
-                department: { department_id: e.target.value },
-              })
-            }
-          />
-        </label>
+        <label className="font-bold">
+          Department ID:   </label>
+        <input className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="text"
+          name="department_id"
+          value={sop.department.department_id}
+          onChange={(e) =>
+            setSop({
+              ...sop,
+              department: { department_id: e.target.value },
+            })
+          }
+        />
         <br />
-        <button type="submit">Submit</button>
+        <button className="w-auto rounded-md border-0 pl-2 pr-2 ml-4 pt-1 pb-1 my-1 font-bold text-gray-900 ring-1 ring-inset ring-black placeholder:text-gray-400"
+          type="submit">Submit</button>
       </form>
     </div>
   );
