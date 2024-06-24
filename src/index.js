@@ -15,9 +15,9 @@ import AddDepartment from "./components/AddDepartment";
 import EmployeeSOPs from "./components/EmployeeSOPs";
 import DepartmentSOPList from "./components/DepartmentSOPList";
 import DepartmentList from "./components/DepartmentList";
-import Login from "./components/Login";
 import employeeStore from './Utils/employeeStore';
 import { Provider } from "react-redux";
+import UpdateSop from './components/UpdateSop';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -62,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "employee/employeeList/deptList",
         element: <DepartmentList />
+      },
+      {
+        path: "employee/employeeList/sopList/updateSop",
+        element: <UpdateSop />
       }
     ],
   }
