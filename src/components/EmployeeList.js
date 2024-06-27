@@ -6,7 +6,6 @@ import { setEmployeeId, setSelectedDepartmentId, setSelectedEmployeeId } from ".
 import DeleteEmployee from "./DeleteEmployee";
 import { setEmployeeMarks } from "../Utils/employeeMarks";
 
-
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [showEmployees, setShowEmployees] = useState(true);
@@ -15,6 +14,7 @@ const EmployeeList = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [updateNewEmployee, setUpdateNewEmployee] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // State to manage search query
   const arrayEmployee = useSelector(
     (store) => store.employeeMarks.EmployeeMarks
   );
@@ -117,14 +117,18 @@ const EmployeeList = () => {
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value);
   };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   console.log("selected", selectedMonth);
-  const filteredEmployees = selectedMonth
-    ? employees.filter((employee) => {
-      const endDate = new Date(employee.end_date);
-      console.log("chhutki", endDate);
-      return months[endDate.getMonth()] === selectedMonth;
-    })
-    : employees;
+  const filteredEmployees = employees.filter((employee) => {
+    const endDate = new Date(employee.end_date);
+    const matchesMonth = selectedMonth ? months[endDate.getMonth()] === selectedMonth : true;
+    const matchesSearch = employee.employee_name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesMonth && matchesSearch;
+  });
 
   return (
     <div>
@@ -141,9 +145,16 @@ const EmployeeList = () => {
               <h3>January Training Employees</h3>
               <option value="">Select a month</option>
               {months.map((month) => (
-                <option value={month}>{month}</option>
+                <option key={month} value={month}>{month}</option>
               ))}
             </select>
+            <input
+              type="text"
+              placeholder="Search by employee name"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="border-2 border-black px-2 m-3"
+            />
           </div>
           <table className="table table-striped table-bordered">
             <thead>
