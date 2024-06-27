@@ -8,7 +8,8 @@ const employeeConflig = createSlice({
     selectedDepartmentId: "",
     SopId: "",
     SopTitle: "",
-    SopDepartmentId: ""
+    SopDepartmentId: "",
+    SopPdfUrl:""
   },
   reducers: {
     setEmployeeId: (state, action) => {
@@ -29,8 +30,11 @@ const employeeConflig = createSlice({
     setSopDepartmentId: (state, action) => {
       state.SopDepartmentId = action.payload;
     },
+    setSopPdfUrl: (state, action) => {
+      state.SopPdfUrl = action.payload;
+    }
 },
 });
 
-export const { setEmployeeId, setSelectedEmployeeId, setSelectedDepartmentId, setSopId, setSopTitle, setSopDepartmentId } = employeeConflig.actions;
+export const { setEmployeeId, setSelectedEmployeeId, setSelectedDepartmentId, setSopId, setSopTitle, setSopDepartmentId, setSopPdfUrl } = employeeConflig.actions;
 export default employeeConflig.reducer;

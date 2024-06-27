@@ -3,8 +3,9 @@ import axios from "axios";
 import SopEmployees from "./SOPEmployees";
 import { Link, useNavigate } from "react-router-dom";
 import DeleteSop from "./DeleteSop";
-import { setSopId, setSopTitle, setSopDepartmentId } from "../Utils/employeeConfig";
+import { setSopId, setSopTitle, setSopDepartmentId, setSopPdfUrl } from "../Utils/employeeConfig";
 import { useDispatch, useSelector } from "react-redux";
+import FileLink from "./FileLink";
 
 const SOPList = () => {
   const [sops, setSops] = useState([]);
@@ -21,11 +22,12 @@ const SOPList = () => {
       .catch((error) => console.error("Error fetching employees:", error));
   }, []);
   console.log(sops, "megha");
-  const handleUpdateSop = (sop_id, sop_title, department_id) => {
+  const handleUpdateSop = (sop_id, sop_title, department_id, file_path) => {
 
     dispatch(setSopId(sop_id));
     dispatch(setSopTitle(sop_title));
     dispatch(setSopDepartmentId(department_id));
+    dispatch(setSopPdfUrl(file_path));
     navigate("updateSop");
   };
   const handleSopClick = async (sop_id) => {
@@ -62,15 +64,13 @@ const SOPList = () => {
                       {sop.sop_id}
                     </button>
                   </td>
-                  {/* <td>
-                    <Link
-                    to={`https://drive.google.com/file/d/${sopPdf[sop.sop_id] }/view?usp=drive_link`}>{sop.sop_title}</Link>
-                      </td> */}
-                  <td>{sop.sop_title}</td>
+                  <FileLink filePath={sop.file_path} sopTitle={sop.sop_title} />
+
+
                   <td>{sop.department.dept_name}</td>
                   <td>
                     <button className="border-2 rounded-md border-black px-2 m-1"
-                      onClick={() => handleUpdateSop(sop.sop_id, sop.sop_title, sop.department.department_id)}
+                      onClick={() => handleUpdateSop(sop.sop_id, sop.sop_title, sop.department.department_id, sop.file_path)}
                     >
                       Update
                     </button>
