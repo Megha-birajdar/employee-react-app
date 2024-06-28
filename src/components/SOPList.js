@@ -11,9 +11,9 @@ const SOPList = () => {
   const [sops, setSops] = useState([]);
   const [showSops, setShowSops] = useState(true);
   const [selectedSop, setSelectedSop] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     axios
@@ -21,30 +21,36 @@ const SOPList = () => {
       .then((response) => setSops(response.data))
       .catch((error) => console.error("Error fetching employees:", error));
   }, []);
-  console.log(sops, "megha");
-  const handleUpdateSop = (sop_id, sop_title, department_id, file_path) => {
 
+  const handleUpdateSop = (sop_id, sop_title, department_id, file_path) => {
     dispatch(setSopId(sop_id));
     dispatch(setSopTitle(sop_title));
     dispatch(setSopDepartmentId(department_id));
     dispatch(setSopPdfUrl(file_path));
     navigate("updateSop");
   };
+
   const handleSopClick = async (sop_id) => {
     setShowSops(false);
     setSelectedSop(sop_id);
   };
-  // const sopPdf = {
-  //   S001: "1BnoSDbyOi_yWWus1s_l6CpIVZFWgeS8P",
-  //   S002: "1s345Q6-8l58jqvF_X_nsQIx_HobrqgN7",
-  //   S003: "1hurVUKlYfo73Zq7MpQiU4JFS4K74N4ow",
-  // };
+
+  const filteredSops = sops.filter(sop =>
+    sop.sop_id.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div>
       {showSops && (
         <>
           <h1 className="text-blue-600">List Of All SOPs</h1>
+          <input
+            type="text"
+            placeholder="Search by sop_id"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="border-2 border-black text-red-500 font-bold px-2 m-2"
+          />
           <table className="table table-striped table-bordered">
             <thead>
               <tr>
@@ -56,27 +62,31 @@ const SOPList = () => {
               </tr>
             </thead>
             <tbody>
-              {sops.map((sop, index) => (
+              {filteredSops.map((sop, index) => (
                 <tr key={sop.sop_id}>
                   <td>{index + 1}</td>
                   <td>
-                    <button className="border-2 border-black rounded-lg px-2 m-1" onClick={() => handleSopClick(sop.sop_id)}>
+                    <button
+                      className="border-2 border-black rounded-lg px-2 m-1"
+                      onClick={() => handleSopClick(sop.sop_id)}
+                    >
                       {sop.sop_id}
                     </button>
                   </td>
-                  <FileLink filePath={sop.file_path} sopTitle={sop.sop_title} />
-
-
+                  <td>
+                    <FileLink filePath={sop.file_path} sopTitle={sop.sop_title} />
+                  </td>
                   <td>{sop.department.dept_name}</td>
                   <td>
-                    <button className="border-2 rounded-md border-black px-2 m-1"
-                      onClick={() => handleUpdateSop(sop.sop_id, sop.sop_title, sop.department.department_id, sop.file_path)}
+                    <button
+                      className="border-2 rounded-md border-black px-2 m-1"
+                      onClick={() =>
+                        handleUpdateSop(sop.sop_id, sop.sop_title, sop.department.department_id, sop.file_path)
+                      }
                     >
                       Update
                     </button>
-                    <DeleteSop
-                      sop_id={sop.sop_id}
-                    />
+                    <DeleteSop sop_id={sop.sop_id} />
                   </td>
                 </tr>
               ))}
@@ -88,4 +98,5 @@ const SOPList = () => {
     </div>
   );
 };
+
 export default SOPList;
